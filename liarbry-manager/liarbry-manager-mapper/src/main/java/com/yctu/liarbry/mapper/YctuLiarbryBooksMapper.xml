@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yctu.liarbry.mapper.YctuLiarbryBooksMapper" >
+  <resultMap id="BaseResultMap" type="com.yctu.liarbry.pojo.YctuLiarbryBooks" >
+    <id column="book_id" property="bookId" jdbcType="INTEGER" />
+    <id column="book_number" property="bookNumber" jdbcType="INTEGER" />
+    <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+    <result column="book_user" property="bookUser" jdbcType="VARCHAR" />
+    <result column="book_type" property="bookType" jdbcType="VARCHAR" />
+    <result column="book_user2" property="bookUser2" jdbcType="VARCHAR" />
+    <result column="book_price" property="bookPrice" jdbcType="DOUBLE" />
+    <result column="book_location" property="bookLocation" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    book_id, book_number, book_name, book_user, book_type, book_user2, book_price, book_location, 
+    create_date, ext1, ext2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yctu.liarbry.pojo.YctuLiarbryBooksExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yctu_liarbry_books
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.yctu.liarbry.pojo.YctuLiarbryBooksKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from yctu_liarbry_books
+    where book_id = #{bookId,jdbcType=INTEGER}
+      and book_number = #{bookNumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yctu.liarbry.pojo.YctuLiarbryBooksKey" >
+    delete from yctu_liarbry_books
+    where book_id = #{bookId,jdbcType=INTEGER}
+      and book_number = #{bookNumber,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yctu.liarbry.pojo.YctuLiarbryBooksExample" >
+    delete from yctu_liarbry_books
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yctu.liarbry.pojo.YctuLiarbryBooks" >
+    insert into yctu_liarbry_books (book_id, book_number, book_name, 
+      book_user, book_type, book_user2, 
+      book_price, book_location, create_date, 
+      ext1, ext2)
+    values (#{bookId,jdbcType=INTEGER}, #{bookNumber,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, 
+      #{bookUser,jdbcType=VARCHAR}, #{bookType,jdbcType=VARCHAR}, #{bookUser2,jdbcType=VARCHAR}, 
+      #{bookPrice,jdbcType=DOUBLE}, #{bookLocation,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{ext1,jdbcType=VARCHAR}, #{ext2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yctu.liarbry.pojo.YctuLiarbryBooks" >
+    insert into yctu_liarbry_books
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="bookNumber != null" >
+        book_number,
+      </if>
+      <if test="bookName != null" >
+        book_name,
+      </if>
+      <if test="bookUser != null" >
+        book_user,
+      </if>
+      <if test="bookType != null" >
+        book_type,
+      </if>
+      <if test="bookUser2 != null" >
+        book_user2,
+      </if>
+      <if test="bookPrice != null" >
+        book_price,
+      </if>
+      <if test="bookLocation != null" >
+        book_location,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="bookNumber != null" >
+        #{bookNumber,jdbcType=INTEGER},
+      </if>
+      <if test="bookName != null" >
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookUser != null" >
+        #{bookUser,jdbcType=VARCHAR},
+      </if>
+      <if test="bookType != null" >
+        #{bookType,jdbcType=VARCHAR},
+      </if>
+      <if test="bookUser2 != null" >
+        #{bookUser2,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPrice != null" >
+        #{bookPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="bookLocation != null" >
+        #{bookLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yctu.liarbry.pojo.YctuLiarbryBooksExample" resultType="java.lang.Integer" >
+    select count(*) from yctu_liarbry_books
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yctu_liarbry_books
+    <set >
+      <if test="record.bookId != null" >
+        book_id = #{record.bookId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookNumber != null" >
+        book_number = #{record.bookNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookName != null" >
+        book_name = #{record.bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookUser != null" >
+        book_user = #{record.bookUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookType != null" >
+        book_type = #{record.bookType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookUser2 != null" >
+        book_user2 = #{record.bookUser2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookPrice != null" >
+        book_price = #{record.bookPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bookLocation != null" >
+        book_location = #{record.bookLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ext1 != null" >
+        ext1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null" >
+        ext2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yctu_liarbry_books
+    set book_id = #{record.bookId,jdbcType=INTEGER},
+      book_number = #{record.bookNumber,jdbcType=INTEGER},
+      book_name = #{record.bookName,jdbcType=VARCHAR},
+      book_user = #{record.bookUser,jdbcType=VARCHAR},
+      book_type = #{record.bookType,jdbcType=VARCHAR},
+      book_user2 = #{record.bookUser2,jdbcType=VARCHAR},
+      book_price = #{record.bookPrice,jdbcType=DOUBLE},
+      book_location = #{record.bookLocation,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yctu.liarbry.pojo.YctuLiarbryBooks" >
+    update yctu_liarbry_books
+    <set >
+      <if test="bookName != null" >
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookUser != null" >
+        book_user = #{bookUser,jdbcType=VARCHAR},
+      </if>
+      <if test="bookType != null" >
+        book_type = #{bookType,jdbcType=VARCHAR},
+      </if>
+      <if test="bookUser2 != null" >
+        book_user2 = #{bookUser2,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPrice != null" >
+        book_price = #{bookPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="bookLocation != null" >
+        book_location = #{bookLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where book_id = #{bookId,jdbcType=INTEGER}
+      and book_number = #{bookNumber,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yctu.liarbry.pojo.YctuLiarbryBooks" >
+    update yctu_liarbry_books
+    set book_name = #{bookName,jdbcType=VARCHAR},
+      book_user = #{bookUser,jdbcType=VARCHAR},
+      book_type = #{bookType,jdbcType=VARCHAR},
+      book_user2 = #{bookUser2,jdbcType=VARCHAR},
+      book_price = #{bookPrice,jdbcType=DOUBLE},
+      book_location = #{bookLocation,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR}
+    where book_id = #{bookId,jdbcType=INTEGER}
+      and book_number = #{bookNumber,jdbcType=INTEGER}
+  </update>
+</mapper>

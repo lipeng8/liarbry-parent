@@ -1,0 +1,38 @@
+ul{
+	list-style: none;
+}
+
+.hide{
+	display: none;
+}
+
+.bookParam ul{
+	padding-left: 0px;
+}
+.bookParam li{
+	line-height: 25px;
+}
+
+.bookForm .pics ul{
+	list-style: none;
+	padding-left: 0px;
+}
+.bookForm .pics ul li{
+	float: left;
+	padding-right: 5px;
+}
+.bookForm .group{
+	font-weight: bold;
+	text-align: center;
+	background-color: #EAEAEA;
+}
+.bookForm .param{
+	width: 80px;
+	text-align: right;
+}
+.tabsClass{
+	margin-right: 60px;
+}
+.index{
+	margin-right: 70px;
+}

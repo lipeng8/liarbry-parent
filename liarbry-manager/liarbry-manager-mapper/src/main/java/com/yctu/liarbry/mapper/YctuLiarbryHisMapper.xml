@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yctu.liarbry.mapper.YctuLiarbryHisMapper" >
+  <resultMap id="BaseResultMap" type="com.yctu.liarbry.pojo.YctuLiarbryHis" >
+    <result column="st_id" property="stId" jdbcType="INTEGER" />
+    <result column="op_id" property="opId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="INTEGER" />
+    <result column="code_msg" property="codeMsg" jdbcType="VARCHAR" />
+    <result column="his_date" property="hisDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    st_id, op_id, type, code, code_msg, his_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yctu.liarbry.pojo.YctuLiarbryHisExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yctu_liarbry_his
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yctu.liarbry.pojo.YctuLiarbryHisExample" >
+    delete from yctu_liarbry_his
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yctu.liarbry.pojo.YctuLiarbryHis" >
+    insert into yctu_liarbry_his (st_id, op_id, type, 
+      code, code_msg, his_date
+      )
+    values (#{stId,jdbcType=INTEGER}, #{opId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
+      #{code,jdbcType=INTEGER}, #{codeMsg,jdbcType=VARCHAR}, #{hisDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yctu.liarbry.pojo.YctuLiarbryHis" >
+    insert into yctu_liarbry_his
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stId != null" >
+        st_id,
+      </if>
+      <if test="opId != null" >
+        op_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="codeMsg != null" >
+        code_msg,
+      </if>
+      <if test="hisDate != null" >
+        his_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stId != null" >
+        #{stId,jdbcType=INTEGER},
+      </if>
+      <if test="opId != null" >
+        #{opId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=INTEGER},
+      </if>
+      <if test="codeMsg != null" >
+        #{codeMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="hisDate != null" >
+        #{hisDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yctu.liarbry.pojo.YctuLiarbryHisExample" resultType="java.lang.Integer" >
+    select count(*) from yctu_liarbry_his
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yctu_liarbry_his
+    <set >
+      <if test="record.stId != null" >
+        st_id = #{record.stId,jdbcType=INTEGER},
+      </if>
+      <if test="record.opId != null" >
+        op_id = #{record.opId,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=INTEGER},
+      </if>
+      <if test="record.codeMsg != null" >
+        code_msg = #{record.codeMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hisDate != null" >
+        his_date = #{record.hisDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yctu_liarbry_his
+    set st_id = #{record.stId,jdbcType=INTEGER},
+      op_id = #{record.opId,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=INTEGER},
+      code_msg = #{record.codeMsg,jdbcType=VARCHAR},
+      his_date = #{record.hisDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

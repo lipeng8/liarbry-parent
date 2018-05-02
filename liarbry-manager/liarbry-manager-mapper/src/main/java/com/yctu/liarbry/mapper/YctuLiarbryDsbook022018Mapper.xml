@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yctu.liarbry.mapper.YctuLiarbryDsbook022018Mapper" >
+  <resultMap id="BaseResultMap" type="com.yctu.liarbry.pojo.YctuLiarbryDsbook022018" >
+    <id column="book_id" property="bookId" jdbcType="INTEGER" />
+    <id column="st_id" property="stId" jdbcType="INTEGER" />
+    <result column="op_id" property="opId" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    book_id, st_id, op_id, money, create_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yctu.liarbry.pojo.YctuLiarbryDsbook022018Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yctu_liarbry_dsbook02_2018
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.yctu.liarbry.pojo.YctuLiarbryDsbook022018Key" >
+    select 
+    <include refid="Base_Column_List" />
+    from yctu_liarbry_dsbook02_2018
+    where book_id = #{bookId,jdbcType=INTEGER}
+      and st_id = #{stId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yctu.liarbry.pojo.YctuLiarbryDsbook022018Key" >
+    delete from yctu_liarbry_dsbook02_2018
+    where book_id = #{bookId,jdbcType=INTEGER}
+      and st_id = #{stId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yctu.liarbry.pojo.YctuLiarbryDsbook022018Example" >
+    delete from yctu_liarbry_dsbook02_2018
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yctu.liarbry.pojo.YctuLiarbryDsbook022018" >
+    insert into yctu_liarbry_dsbook02_2018 (book_id, st_id, op_id, 
+      money, create_date)
+    values (#{bookId,jdbcType=INTEGER}, #{stId,jdbcType=INTEGER}, #{opId,jdbcType=INTEGER}, 
+      #{money,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yctu.liarbry.pojo.YctuLiarbryDsbook022018" >
+    insert into yctu_liarbry_dsbook02_2018
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="stId != null" >
+        st_id,
+      </if>
+      <if test="opId != null" >
+        op_id,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="stId != null" >
+        #{stId,jdbcType=INTEGER},
+      </if>
+      <if test="opId != null" >
+        #{opId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yctu.liarbry.pojo.YctuLiarbryDsbook022018Example" resultType="java.lang.Integer" >
+    select count(*) from yctu_liarbry_dsbook02_2018
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yctu_liarbry_dsbook02_2018
+    <set >
+      <if test="record.bookId != null" >
+        book_id = #{record.bookId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stId != null" >
+        st_id = #{record.stId,jdbcType=INTEGER},
+      </if>
+      <if test="record.opId != null" >
+        op_id = #{record.opId,jdbcType=INTEGER},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yctu_liarbry_dsbook02_2018
+    set book_id = #{record.bookId,jdbcType=INTEGER},
+      st_id = #{record.stId,jdbcType=INTEGER},
+      op_id = #{record.opId,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yctu.liarbry.pojo.YctuLiarbryDsbook022018" >
+    update yctu_liarbry_dsbook02_2018
+    <set >
+      <if test="opId != null" >
+        op_id = #{opId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where book_id = #{bookId,jdbcType=INTEGER}
+      and st_id = #{stId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yctu.liarbry.pojo.YctuLiarbryDsbook022018" >
+    update yctu_liarbry_dsbook02_2018
+    set op_id = #{opId,jdbcType=INTEGER},
+      money = #{money,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where book_id = #{bookId,jdbcType=INTEGER}
+      and st_id = #{stId,jdbcType=INTEGER}
+  </update>
+</mapper>
