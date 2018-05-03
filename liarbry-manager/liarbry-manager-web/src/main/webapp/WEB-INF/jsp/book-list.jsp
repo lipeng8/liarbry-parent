@@ -142,23 +142,27 @@
         iconCls:'icon-cancel',
         handler:function(){
         	var ids = getSelectionsIds();
+            var opst = <%=opId%>;
             if(ids.length == 0){
                 $.messager.alert('提示','请选择一条处理!');
                 return ;
             }
-        	/*if(ids.length != 1 ){
-        		$.messager.alert('提示','只能选中一条处理!');
-        		return ;
-        	}*/
+            console.log(opst)
+            if (opst == null || opst == '' || opst == 0 || opst == undefined) {
+                $.messager.alert('错误', "请登录操作员账号");
+                return;
+            }
         	$.messager.confirm('确认','确定删除ID为 '+ids+' 的图书吗？',function(r){
         	    if (r){
                     var sels = $("#bookList").datagrid("getChecked");
                     for(var i=1 in sels){
                         $.post("/book/delete?op_id=<%=opId%>&bookId="+sels[i].bookId, function(data){
-                            if(data.status == 200){
+                            if (data.rscode == 0) {
                                 $.messager.alert('提示','删除商品成功!',undefined,function(){
                                     $("#bookList").datagrid("reload");
                                 });
+                            }else {
+                                $.messager.alert("警告",data.rsdec);
                             }
                         });
                     }
