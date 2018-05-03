@@ -172,7 +172,7 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
             if (op == null) {
                 throw new Exception("06");
             }
-            if (op.getOpType()<= 2) {
+            if (op.getOpType()>1) {
                 throw new Exception("01");
             }
             YctuLiarbryBooksExample yctuLiarbryBooksExample = new YctuLiarbryBooksExample();
@@ -224,7 +224,7 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
             if (op == null) {
                 throw new Exception("06");
             }else{
-                if (op.getOpType()<=2){
+                if (op.getOpType()>1){
                     throw new Exception("01");
                 }
             }

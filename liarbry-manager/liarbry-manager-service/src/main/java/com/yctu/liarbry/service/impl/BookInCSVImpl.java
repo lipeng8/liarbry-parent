@@ -217,7 +217,7 @@ public class BookInCSVImpl implements IBookInCSV {
             if (op == null) {
                 throw new Exception("06");
             } else {
-                if (op.getOpType() >= 2) {
+                if (op.getOpType() > 2) {
                     throw new Exception("01");
                 }
             }

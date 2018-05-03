@@ -3,6 +3,7 @@ package com.yctu.liarbry.controller;
 import com.yctu.liarbry.pojo.YctuLiarbryBooks;
 import com.yctu.liarbry.service.interfaces.IQryBooksCSV;
 import com.yctu.library.common.pojo.EUDataGridResult;
+import com.yctu.library.common.pojo.SuccessCode;
 import com.yctu.library.common.utils.EncodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,4 +51,19 @@ public class booksController {
         return euDataGridResult;
     }
 
+    /**
+     * 删除图书
+     * <p>@Description </p>
+     * <p>@createDate 21:26 2018/4/28</p>
+     *
+     * @param
+     * @return
+     * @author lipeng
+     */
+    @RequestMapping("/book/delete")
+    @ResponseBody
+    public SuccessCode deleteBook(Integer bookId, Integer op_id) {
+        SuccessCode successCode = qryBooksCSV.deleteBook(bookId,op_id);
+        return successCode;
+    }
 }

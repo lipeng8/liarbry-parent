@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    String opId = request.getParameter("opId");//用request得到
+%>
 <table class="easyui-datagrid" id="bookList" title="图书列表" style="position: relative"
        data-options="singleSelect:false,collapsible:true,pagination:true,url:'/book/list',method:'get',pageSize:30,toolbar:toolbar">
     <thead>
@@ -137,20 +142,27 @@
         iconCls:'icon-cancel',
         handler:function(){
         	var ids = getSelectionsIds();
-        	if(ids.length == 0){
-        		$.messager.alert('提示','未选中商品!');
+            if(ids.length == 0){
+                $.messager.alert('提示','请选择一条处理!');
+                return ;
+            }
+        	/*if(ids.length != 1 ){
+        		$.messager.alert('提示','只能选中一条处理!');
         		return ;
-        	}
-        	$.messager.confirm('确认','确定删除ID为 '+ids+' 的商品吗？',function(r){
+        	}*/
+        	$.messager.confirm('确认','确定删除ID为 '+ids+' 的图书吗？',function(r){
         	    if (r){
-        	    	var params = {"ids":ids};
-                	$.post("/rest/book/delete",params, function(data){
-            			if(data.status == 200){
-            				$.messager.alert('提示','删除商品成功!',undefined,function(){
-            					$("#bookList").datagrid("reload");
-            				});
-            			}
-            		});
+                    var sels = $("#bookList").datagrid("getChecked");
+                    for(var i=1 in sels){
+                        $.post("/book/delete?op_id=<%=opId%>&bookId="+sels[i].bookId, function(data){
+                            if(data.status == 200){
+                                $.messager.alert('提示','删除商品成功!',undefined,function(){
+                                    $("#bookList").datagrid("reload");
+                                });
+                            }
+                        });
+                    }
+
         	    }
         	});
         }

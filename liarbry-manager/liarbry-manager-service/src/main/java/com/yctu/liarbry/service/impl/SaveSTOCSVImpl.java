@@ -105,7 +105,7 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
             if (opid == null) {
                 throw new Exception("06");
             }
-            if (opid.getOpType()>1) {
+            if (opid.getOpType()>2) {
                 throw new Exception("01");
             }
             YctuLiarbryTeachers teachers = teacherCSV.qryTeacher(teacher_id);
@@ -166,7 +166,7 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
             if (opid == null) {
                 throw new Exception("06");
             }
-            if (opid.getOpType()>1) {
+            if (opid.getOpType()>2) {
                 throw new Exception("01");
             }
             YctuLiarbryTeachers teachers = teacherCSV.qryTeacher(teacher_id);

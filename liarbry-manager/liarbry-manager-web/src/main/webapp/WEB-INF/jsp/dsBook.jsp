@@ -5,18 +5,18 @@
     String opId = request.getParameter("opId");//用request得到
 %>
 <table class="easyui-datagrid" id="dsBookList" title="损坏图书列表" style="position: relative"
-       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/book/QryStuIn',method:'get',pageSize:30,toolbar:toolbar">
+       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/book/qryDsBook',method:'get',pageSize:30,toolbar:toolbar">
     <thead>
     <tr>
         <th data-options="field:'ck',checkbox:true"></th>
-        <th data-options="field:'student_name',width:70">学生姓名</th>
-        <th data-options="field:'op_name',width:70">操作员姓名</th>
-        <th data-options="field:'book_name',width:200">图书名称</th>
-        <th data-options="field:'in_date',width:150">借书日期</th>
-        <th data-options="field:'inStaus',width:50">图书是否顺坏</th>
-        <th data-options="field:'type_name',width:90,align:'right'">图书类别</th>
-        <th data-options="field:'ext1',width:90,align:'right'">补充</th>
-        <th data-options="field:'ext2',width:90,align:'right'">注释</th>
+        <th data-options="field:'opId',width:70">操作员编号</th>
+        <th data-options="field:'opName',width:70">操作员姓名</th>
+        <th data-options="field:'bookId',width:70">图书编号</th>
+        <th data-options="field:'bookName',width:150">图书名称</th>
+        <th data-options="field:'stId',width:50">学生或老师编号</th>
+        <th data-options="field:'stName',width:90,align:'right'">学生姓名</th>
+        <th data-options="field:'money',width:90,align:'right'">罚款</th>
+        <th data-options="field:'createDate',width:160,align:'center',formatter:LIBRARY.formatDateTime">创建时间</th>
 
     </tr>
     </thead>
@@ -25,10 +25,10 @@
      data-options="modal:true,closed:true,iconCls:'icon-save',href:'/rest/page/book-edit'"
      style="width:80%;height:80%;padding:10px;">
 </div>
-<div style="position: absolute;top: 42px;left:730px;">
+<div style="position: absolute;top: 42px;left:630px;">
     <input id="filterText" class="easyui-textbox" type="text"></input>
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="qryById()">根据Id搜索</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="qryByName()">根据名称搜索</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="qryById()">根据学生或老师编号搜索</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="qryByName()">根据操作员编号搜索</a>
 </div>
 <script>
     function qryById() {
@@ -38,19 +38,19 @@
             return;
         }
         $("#dsBookList").datagrid({
-            url: '/book/inQry?in_st_id=' + student_id
+            url: '/book/qryDsBookByStId?st_id=' + student_id
         });
     }
 
     function qryByName() {
-        var student_name = $("#filterText").val();
+        var op_id = $("#filterText").val();
         student_name = encodeURI(encodeURI(student_name));
-        if (student_name == '' || student_name == null) {
-            $.messager.alert('错误', "请输入学生姓名");
+        if (op_id == '' || op_id == null) {
+            $.messager.alert('错误', "请输入操作员编号");
             return;
         }
         $("#dsBookList").datagrid({
-            url: '/book/inQry?studentName=' + student_name
+            url: '/book/qryDsBookByOp?opId=' + op_id
         });
     }
 
