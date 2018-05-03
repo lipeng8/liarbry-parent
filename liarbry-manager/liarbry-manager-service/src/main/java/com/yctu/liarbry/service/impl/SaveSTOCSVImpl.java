@@ -8,6 +8,8 @@ import com.yctu.liarbry.service.interfaces.*;
 import com.yctu.library.common.pojo.SuccessCode;
 import com.yctu.library.common.utils.BookTimeUtil;
 import com.yctu.library.common.utils.SuccessUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SaveSTOCSVImpl implements ISaveSTOCSV {
+    /**
+     * 全局log
+     */
+    private static final Log log = LogFactory.getLog(SaveSTOCSVImpl.class);
     @Autowired
     private ILibraryOpCSV opCSV;
     @Autowired
@@ -33,14 +39,18 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
     private IDsBookCSV dsBookCSV;
     @Autowired
     private IQryBookTypeCSV bookTypeCSV;
-    /**添加管理员
-     *<p>@Description </p>
-     *<p>@createDate 17:12 2018/5/2</p>
-     *@author lipeng
-     *@param
-     *@return
+
+    /**
+     * 添加管理员
+     * <p>@Description </p>
+     * <p>@createDate 17:12 2018/5/2</p>
+     *
+     * @param
+     * @return
+     * @author lipeng
      */
-    public SuccessCode saveOp(Integer op_id, Integer opId, String op_pwd, String op_name, Integer op_type, String ext1, String ext2){
+    public SuccessCode saveOp(Integer op_id, Integer opId, String op_pwd, String op_name, Integer op_type, String ext1, String ext2) {
+        log.info("添加管理员：开始：op_id=" + op_id);
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
@@ -49,11 +59,11 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
             if (opid == null) {
                 throw new Exception("06");
             }
-            if (opid.getOpType()>1) {
+            if (opid.getOpType() > 1) {
                 throw new Exception("01");
             }
             YctuLiarbryOp op = opCSV.qryOpName(op_id);
-            if (op == null){
+            if (op == null) {
                 YctuLiarbryOp liarbryOp = new YctuLiarbryOp();
                 liarbryOp.setCreateDate(BookTimeUtil.opTimes());
                 liarbryOp.setExt1(ext1);
@@ -63,7 +73,7 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
                 liarbryOp.setOpPassword(op_pwd);
                 liarbryOp.setOpType(op_type);
                 opCSV.insertOp(liarbryOp);
-            }else {
+            } else {
                 throw new Exception("20");
             }
 
@@ -86,17 +96,22 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
                 his.setType("新增操作员");
             }
             hisCSV.insertHis(his);
+            log.info("添加管理员：结束：op_id=" + op_id);
         }
         return successCode;
     }
-    /**添加学生
-     *<p>@Description </p>
-     *<p>@createDate 17:12 2018/5/2</p>
-     *@author lipeng
-     *@param
-     *@return
+
+    /**
+     * 添加学生
+     * <p>@Description </p>
+     * <p>@createDate 17:12 2018/5/2</p>
+     *
+     * @param
+     * @return
+     * @author lipeng
      */
-    public SuccessCode saveStudent(Integer student_id, Integer opId, String student_name, Integer student_class,Integer teacher_id, String ext1, String ext2){
+    public SuccessCode saveStudent(Integer student_id, Integer opId, String student_name, Integer student_class, Integer teacher_id, String ext1, String ext2) {
+        log.info("添加学生：开始：op_id=" + opId);
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
@@ -105,15 +120,15 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
             if (opid == null) {
                 throw new Exception("06");
             }
-            if (opid.getOpType()>2) {
+            if (opid.getOpType() > 2) {
                 throw new Exception("01");
             }
             YctuLiarbryTeachers teachers = teacherCSV.qryTeacher(teacher_id);
-            if (teachers == null){
+            if (teachers == null) {
                 throw new Exception("23");
             }
             YctuLiarbryStudents students = studentsCSV.qryStduent(student_id);
-            if (students == null){
+            if (students == null) {
                 YctuLiarbryStudents student = new YctuLiarbryStudents();
                 student.setCreateDate(BookTimeUtil.opTimes());
                 student.setExt1(ext1);
@@ -124,7 +139,7 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
                 student.setTeacherId(teacher_id);
                 student.setStudentName(student_name);
                 studentsCSV.insertStudent(student);
-            }else {
+            } else {
                 throw new Exception("21");
             }
 
@@ -147,17 +162,22 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
                 his.setType("新增学生");
             }
             hisCSV.insertHis(his);
+            log.info("添加学生：结束：op_id=" + opId);
         }
         return successCode;
     }
-    /**添加老师
-     *<p>@Description </p>
-     *<p>@createDate 17:12 2018/5/2</p>
-     *@author lipeng
-     *@param
-     *@return
+
+    /**
+     * 添加老师
+     * <p>@Description </p>
+     * <p>@createDate 17:12 2018/5/2</p>
+     *
+     * @param
+     * @return
+     * @author lipeng
      */
-    public SuccessCode saveTeacher(Integer teacher_id, Integer opId, String teacher_pwd, String teacher_name, Integer teacher_class, String ext1, String ext2){
+    public SuccessCode saveTeacher(Integer teacher_id, Integer opId, String teacher_pwd, String teacher_name, Integer teacher_class, String ext1, String ext2) {
+        log.info("添加老师：开始：op_id=" + opId);
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
@@ -166,11 +186,11 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
             if (opid == null) {
                 throw new Exception("06");
             }
-            if (opid.getOpType()>2) {
+            if (opid.getOpType() > 2) {
                 throw new Exception("01");
             }
             YctuLiarbryTeachers teachers = teacherCSV.qryTeacher(teacher_id);
-            if (teachers == null){
+            if (teachers == null) {
                 YctuLiarbryTeachers teacher = new YctuLiarbryTeachers();
                 teacher.setCreateDate(BookTimeUtil.opTimes());
                 teacher.setExt1(ext1);
@@ -181,7 +201,7 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
                 teacher.setTeacherName(teacher_name);
                 teacher.setTeacherPwd(teacher_pwd);
                 teacherCSV.insertTeacher(teacher);
-            }else {
+            } else {
                 throw new Exception("22");
             }
         } catch (Exception e) {
@@ -203,6 +223,7 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
                 his.setType("新增老师");
             }
             hisCSV.insertHis(his);
+            log.info("添加老师：结束：op_id=" + opId);
         }
         return successCode;
     }

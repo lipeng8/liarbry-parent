@@ -4,6 +4,8 @@ import com.yctu.liarbry.mapper.YctuLiarbryTeachersMapper;
 import com.yctu.liarbry.pojo.YctuLiarbryTeachers;
 import com.yctu.liarbry.pojo.YctuLiarbryTeachersExample;
 import com.yctu.liarbry.service.interfaces.ITeacherCSV;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,10 @@ import java.util.List;
  */
 @Service
 public class TeacherCSVImpl implements ITeacherCSV {
+    /**
+     * 全局log
+     */
+    private static final Log log = LogFactory.getLog(TeacherCSVImpl.class);
     @Autowired
     private YctuLiarbryTeachersMapper mapper;
 
@@ -29,6 +35,7 @@ public class TeacherCSVImpl implements ITeacherCSV {
      */
     @Override
     public YctuLiarbryTeachers qryTeacher(Integer teacher_id) {
+        log.info("查询老师：开始：teacher_id=" + teacher_id);
         YctuLiarbryTeachersExample example = new YctuLiarbryTeachersExample();
 //添加查询条件
         YctuLiarbryTeachersExample.Criteria criteria = example.createCriteria();
@@ -36,6 +43,7 @@ public class TeacherCSVImpl implements ITeacherCSV {
         List<YctuLiarbryTeachers> list = mapper.selectByExample(example);
         if (list != null && list.size() > 0) {
             YctuLiarbryTeachers teacher = list.get(0);
+            log.info("查询老师：结束：teacher_id=" + teacher_id);
             return teacher;
         }
         return null;
@@ -52,7 +60,9 @@ public class TeacherCSVImpl implements ITeacherCSV {
      */
     @Override
     public void insertTeacher(YctuLiarbryTeachers teachers) {
+        log.info("查询老师：开始：teacher_id=" + teachers.getTeacherId());
         mapper.insert(teachers);
+        log.info("查询老师：结束：teacher_id=" + teachers.getTeacherId());
     }
 
     /**
@@ -66,12 +76,14 @@ public class TeacherCSVImpl implements ITeacherCSV {
      */
     @Override
     public void deleteTeacher(Integer teacher_id) {
+        log.info("删除老师by：开始：teacher_id=" + teacher_id);
         YctuLiarbryTeachersExample example = new YctuLiarbryTeachersExample();
 //添加查询条件
         YctuLiarbryTeachersExample.Criteria criteria = example.createCriteria();
         criteria.andTeacherIdEqualTo(teacher_id);
         //应该加异常
         mapper.deleteByExample(example);
+        log.info("删除老师by：结束：teacher_id=" + teacher_id);
 
     }
 
@@ -86,12 +98,14 @@ public class TeacherCSVImpl implements ITeacherCSV {
      */
     @Override
     public void deleteTeacher(String teacher_name) {
+        log.info("删除老师by：开始：teacher_name=" + teacher_name);
         YctuLiarbryTeachersExample example = new YctuLiarbryTeachersExample();
 //添加查询条件
         YctuLiarbryTeachersExample.Criteria criteria = example.createCriteria();
         criteria.andTeacherNameEqualTo(teacher_name);
         //应该加异常
         mapper.deleteByExample(example);
+        log.info("删除老师by：结束：teacher_name=" + teacher_name);
 
     }
 
@@ -106,10 +120,12 @@ public class TeacherCSVImpl implements ITeacherCSV {
      */
     @Override
     public void updateTeacher(Integer teacher_id, YctuLiarbryTeachers teachers) {
+        log.info("更改老师信息：开始：teacher_id=" + teacher_id);
         YctuLiarbryTeachersExample example = new YctuLiarbryTeachersExample();
         //添加查询条件
         YctuLiarbryTeachersExample.Criteria criteria = example.createCriteria();
         criteria.andTeacherIdEqualTo(teacher_id);
         mapper.updateByExample(teachers, example);
+        log.info("更改老师信息：结束：teacher_id=" + teacher_id);
     }
 }

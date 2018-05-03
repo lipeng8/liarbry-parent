@@ -4,6 +4,8 @@ import com.yctu.liarbry.mapper.YctuLiarbryOpMapper;
 import com.yctu.liarbry.pojo.YctuLiarbryOp;
 import com.yctu.liarbry.pojo.YctuLiarbryOpExample;
 import com.yctu.liarbry.service.interfaces.ILibraryOpCSV;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,10 @@ import java.util.List;
  */
 @Service
 public class LibraryOpCSVImpl implements ILibraryOpCSV {
+    /**
+     * 全局log
+     */
+    private static final Log log = LogFactory.getLog(LibraryOpCSVImpl.class);
     @Autowired
     private YctuLiarbryOpMapper mapper;
 
@@ -29,6 +35,7 @@ public class LibraryOpCSVImpl implements ILibraryOpCSV {
      */
     @Override
     public YctuLiarbryOp qryOpName(Integer op_id) {
+        log.info("查询操作员开始：op_id=" + op_id);
         YctuLiarbryOpExample example = new YctuLiarbryOpExample();
         //添加查询条件
         YctuLiarbryOpExample.Criteria criteria = example.createCriteria();
@@ -36,6 +43,7 @@ public class LibraryOpCSVImpl implements ILibraryOpCSV {
         List<YctuLiarbryOp> list = mapper.selectByExample(example);
         if (list != null && list.size() > 0) {
             YctuLiarbryOp opName = list.get(0);
+            log.info("查询操作员结束：op_id=" + op_id);
             return opName;
         }
         return null;
@@ -52,7 +60,9 @@ public class LibraryOpCSVImpl implements ILibraryOpCSV {
      */
     @Override
     public void insertOp(YctuLiarbryOp op) {
+        log.info("查询操作员开始：");
         mapper.insert(op);
+        log.info("查询操作员结束：");
     }
 
     /**
@@ -66,12 +76,14 @@ public class LibraryOpCSVImpl implements ILibraryOpCSV {
      */
     @Override
     public void deleteOp(Integer op_id) {
+        log.info("删除操作员开始：op_id=" + op_id);
         YctuLiarbryOpExample example = new YctuLiarbryOpExample();
 //添加查询条件
         YctuLiarbryOpExample.Criteria criteria = example.createCriteria();
         criteria.andOpIdEqualTo(op_id);
         //应该加异常
         mapper.deleteByExample(example);
+        log.info("删除操作员结束：op_id=" + op_id);
 
     }
 
@@ -86,12 +98,14 @@ public class LibraryOpCSVImpl implements ILibraryOpCSV {
      */
     @Override
     public void deleteOp(String op_name) {
+        log.info("删除操作员开始：op_name=" + op_name);
         YctuLiarbryOpExample example = new YctuLiarbryOpExample();
 //添加查询条件
         YctuLiarbryOpExample.Criteria criteria = example.createCriteria();
         criteria.andOpNameEqualTo(op_name);
         //应该加异常
         mapper.deleteByExample(example);
+        log.info("删除操作员结束：op_name=" + op_name);
 
     }
 
@@ -106,10 +120,12 @@ public class LibraryOpCSVImpl implements ILibraryOpCSV {
      */
     @Override
     public void updateOp(Integer op_id, YctuLiarbryOp op) {
+        log.info("更改操作员信息开始：op_id=" + op_id);
         YctuLiarbryOpExample example = new YctuLiarbryOpExample();
         //添加查询条件
         YctuLiarbryOpExample.Criteria criteria = example.createCriteria();
         criteria.andOpIdEqualTo(op_id);
         mapper.updateByExample(op, example);
+        log.info("更改操作员信息结束：op_id=" + op_id);
     }
 }

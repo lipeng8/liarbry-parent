@@ -12,6 +12,8 @@ import com.yctu.library.common.pojo.SuccessMoneyCode;
 import com.yctu.library.common.utils.BookTimeUtil;
 import com.yctu.library.common.utils.SuccessUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,10 @@ import java.util.List;
  */
 @Service
 public class BookOutCSVImpl implements IBookOutCSV {
+    /**
+     * 全局log
+     */
+    private static final Log log = LogFactory.getLog(BookOutCSVImpl.class);
     @Autowired
     private YctuLiarbryOutMapper mapper;
     @Autowired
@@ -52,11 +58,13 @@ public class BookOutCSVImpl implements IBookOutCSV {
      */
     @Override
     public List<YctuLiarbryOut> qryBookOut(Integer out_st_id, Integer book_id) {
+        log.info("借书记录查询开始：out_st_id="+out_st_id+" book_id="+book_id);
         YctuLiarbryOutExample example = new YctuLiarbryOutExample();
         YctuLiarbryOutExample.Criteria criteria = example.createCriteria();
         criteria.andOutStIdEqualTo(out_st_id);
         criteria.andBookIdEqualTo(book_id);
         List<YctuLiarbryOut> outs = mapper.selectByExample(example);
+        log.info("借书记录查询结束：out_st_id="+out_st_id+" book_id="+book_id);
         return outs;
     }
 
@@ -71,10 +79,12 @@ public class BookOutCSVImpl implements IBookOutCSV {
      */
     @Override
     public List<YctuLiarbryOut> qryBookOut(Integer out_st_id) {
+        log.info("借书记录查询开始：out_st_id="+out_st_id);
         YctuLiarbryOutExample example = new YctuLiarbryOutExample();
         YctuLiarbryOutExample.Criteria criteria = example.createCriteria();
         criteria.andOutStIdEqualTo(out_st_id);
         List<YctuLiarbryOut> outs = mapper.selectByExample(example);
+        log.info("借书记录查询结束：out_st_id="+out_st_id);
         return outs;
     }
 
@@ -89,7 +99,8 @@ public class BookOutCSVImpl implements IBookOutCSV {
      */
     @Override
     public EUDataGridResult teaOutQry(Integer teacher_id, String studentName,Integer out_st_id, Integer page, Integer rows) {
-            List<YctuLiarbryStudents> list =  studentsCSV.studentByIdOrNname(teacher_id,out_st_id,studentName);
+        log.info("借书记录查询开始：out_st_id="+out_st_id+" teacher_id="+teacher_id+"  studentName="+studentName);
+        List<YctuLiarbryStudents> list =  studentsCSV.studentByIdOrNname(teacher_id,out_st_id,studentName);
             YctuLiarbryStudents students = new YctuLiarbryStudents();
             if (list !=null || list.size()>0){
                  students=list.get(0);
@@ -127,6 +138,7 @@ public class BookOutCSVImpl implements IBookOutCSV {
                 PageInfo<TeaQryStu> pageInfo = new PageInfo<>(teaQryStus);
                 long total = pageInfo.getTotal();
                 euDataGridResult.setTotal(total);
+                log.info("借书记录查询结束：out_st_id="+out_st_id+" teacher_id="+teacher_id+"  studentName="+studentName);
                 return euDataGridResult;
             }
 
@@ -143,6 +155,7 @@ public class BookOutCSVImpl implements IBookOutCSV {
      */
     @Override
     public EUDataGridResult qryBookOutList(String studentName,Integer out_st_id, Integer page, Integer rows) {
+        log.info("借书记录查询开始：out_st_id="+out_st_id+"  studentName="+studentName);
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
@@ -216,6 +229,7 @@ public class BookOutCSVImpl implements IBookOutCSV {
                 }
                 his.setType(studentName+":借书记录查询");
             }
+            log.info("借书记录查询结束：out_st_id="+out_st_id+"  studentName="+studentName);
             hisCSV.insertHis(his);
         }
         return null;
@@ -232,6 +246,7 @@ public class BookOutCSVImpl implements IBookOutCSV {
      */
     @Override
     public SuccessCode insertOut(YctuLiarbryOut out) {
+        log.info("添加借书记录开始：opid="+out.getOutOpId());
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
@@ -305,6 +320,7 @@ public class BookOutCSVImpl implements IBookOutCSV {
                 his.setType("借书");
             }
             hisCSV.insertHis(his);
+            log.info("添加借书记录结束：opid="+out.getOutOpId());
             return successCode;
         }
     }
@@ -376,6 +392,7 @@ public class BookOutCSVImpl implements IBookOutCSV {
      */
     @Override
     public SuccessCode updateOut(Integer out_st_id, Integer book_id, YctuLiarbryOut out) {
+        log.info("更改借书记录开始：opid="+out.getOutOpId()+"  out_st_id="+out_st_id+" book_id="+book_id);
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
@@ -395,6 +412,7 @@ public class BookOutCSVImpl implements IBookOutCSV {
                 successCode.setRscode(00);
                 successCode.setRsdec("成功");
             }
+            log.info("更改借书记录结束：opid="+out.getOutOpId()+"  out_st_id="+out_st_id+" book_id="+book_id);
             return successCode;
         }
     }

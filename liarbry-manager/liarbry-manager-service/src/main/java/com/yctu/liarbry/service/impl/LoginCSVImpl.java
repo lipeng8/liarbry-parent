@@ -7,6 +7,8 @@ import com.yctu.liarbry.service.interfaces.*;
 import com.yctu.library.common.pojo.LoginCode;
 import com.yctu.library.common.pojo.SuccessCode;
 import com.yctu.library.common.utils.SuccessUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class LoginCSVImpl implements ILoginCSV {
+    /**
+     * 全局log
+     */
+    private static final Log log = LogFactory.getLog(LoginCSVImpl.class);
     @Autowired
     private ILibraryOpCSV libraryOpCSV;
     @Autowired
@@ -34,10 +40,11 @@ public class LoginCSVImpl implements ILoginCSV {
      * @author lipeng
      */
     public LoginCode login(Integer lg_id, String lg_pwd, Integer lg_type) {
+        log.info("登陆开始：lg_id=" + lg_id);
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
-        LoginCode  loginCode = new LoginCode();
+        LoginCode loginCode = new LoginCode();
         try {
             if (lg_type == 1) {
                 YctuLiarbryOp op = libraryOpCSV.qryOpName(lg_id);
@@ -49,17 +56,17 @@ public class LoginCSVImpl implements ILoginCSV {
                 } else {
                     throw new Exception("06");
                 }
-            } else if (lg_type == 2){
+            } else if (lg_type == 2) {
                 YctuLiarbryTeachers teachers = teacherCSV.qryTeacher(lg_id);
-                if (teachers != null){
-                    if (!teachers.getTeacherPwd().equals(lg_pwd)){
+                if (teachers != null) {
+                    if (!teachers.getTeacherPwd().equals(lg_pwd)) {
                         throw new Exception("15");
                     }
                     loginCode.setName(teachers.getTeacherName());
-                }else {
+                } else {
                     throw new Exception("17");
                 }
-            }else {
+            } else {
                 throw new Exception("18");
             }
         } catch (Exception e) {
@@ -105,7 +112,7 @@ public class LoginCSVImpl implements ILoginCSV {
                     loginCode.setRscode(successCode.getRscode());
                     loginCode.setRsdec(successCode.getRsdec());
                 }
-            }else {
+            } else {
                 his.setCode(successCode.getRscode());
                 his.setCodeMsg(successCode.getRsdec());
                 his.setOpId(0);
@@ -115,6 +122,7 @@ public class LoginCSVImpl implements ILoginCSV {
                 loginCode.setRsdec(successCode.getRsdec());
             }
             hisCSV.insertHis(his);
+            log.info("登陆结束：lg_id=" + lg_id + "  rsdec=" + successCode.getRsdec());
             return loginCode;
         }
     }

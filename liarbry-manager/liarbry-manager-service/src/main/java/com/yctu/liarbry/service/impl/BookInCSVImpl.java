@@ -12,6 +12,8 @@ import com.yctu.library.common.pojo.SuccessMoneyCode;
 import com.yctu.library.common.utils.BookTimeUtil;
 import com.yctu.library.common.utils.SuccessUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,10 @@ import java.util.List;
  */
 @Service
 public class BookInCSVImpl implements IBookInCSV {
+    /**
+     * 全局log
+     */
+    private static final Log log = LogFactory.getLog(BookInCSVImpl.class);
     @Autowired
     private YctuLiarbryInMapper mapper;
     @Autowired
@@ -54,6 +60,7 @@ public class BookInCSVImpl implements IBookInCSV {
      */
     @Override
     public EUDataGridResult qryBookInname(Integer in_st_id, String studentName, Integer page, Integer rows) {
+        log.info("还书记录查询开始开始：in_st_id="+in_st_id+"   studentName="+studentName);
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
@@ -135,6 +142,7 @@ public class BookInCSVImpl implements IBookInCSV {
                 his.setType(studentName+"还书记录查询");
             }
             hisCSV.insertHis(his);
+            log.info("还书记录查询开始结束：in_st_id="+in_st_id+"   studentName="+studentName+" Rscode="+successCode.getRscode());
         }
         return null;
     }
@@ -150,7 +158,7 @@ public class BookInCSVImpl implements IBookInCSV {
      */
     @Override
     public EUDataGridResult qryBookIn(Integer page, Integer rows) {
-
+        log.info("还书记录查询开始开始：");
         //执行查询 分页
         YctuLiarbryInExample example = new YctuLiarbryInExample();
 
@@ -189,6 +197,7 @@ public class BookInCSVImpl implements IBookInCSV {
         PageInfo<Inbookqry> pageInfo = new PageInfo<>(inbookqries);
         long total = pageInfo.getTotal();
         euDataGridResult.setTotal(total);
+        log.info("还书记录查询结束：");
         return euDataGridResult;
 
     }
@@ -205,6 +214,7 @@ public class BookInCSVImpl implements IBookInCSV {
      */
     @Override
     public SuccessMoneyCode insertIn(YctuLiarbryIn in) {
+        log.info("添加还书记录开始：opid=" +in.getInOpId());
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
@@ -305,6 +315,7 @@ public class BookInCSVImpl implements IBookInCSV {
                 his.setType("添加还书记录");
             }
             hisCSV.insertHis(his);
+            log.info("添加还书记录结束：opid=" +in.getInOpId());
             successMoneyCode.setRscode(his.getCode());
             successMoneyCode.setRsdec(his.getCodeMsg());
             return successMoneyCode;

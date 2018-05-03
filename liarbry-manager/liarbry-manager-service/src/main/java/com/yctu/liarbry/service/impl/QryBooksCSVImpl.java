@@ -12,6 +12,8 @@ import com.yctu.library.common.pojo.EUDataGridResult;
 import com.yctu.library.common.pojo.SuccessCode;
 import com.yctu.library.common.utils.SuccessUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,10 @@ import java.util.List;
  */
 @Service
 public class QryBooksCSVImpl implements IQryBooksCSV {
+    /**
+     * 全局log
+     */
+    private static final Log log = LogFactory.getLog(QryBooksCSVImpl.class);
     @Autowired
     private YctuLiarbryBooksMapper liarbryBooksMapper;
     @Autowired
@@ -46,44 +52,46 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
      * @return
      * @author lipeng
      */
-   public EUDataGridResult qryBooksLoc(Integer bookId,String bookName){
-       //执行查询 分页
-       YctuLiarbryBooksExample example = new YctuLiarbryBooksExample();
-       YctuLiarbryBooksExample.Criteria criteria = example.createCriteria();
-       if (StringUtils.isBlank(bookName)) {
-           criteria.andBookIdEqualTo(bookId);
-       }else {
-           criteria.andBookNameLike("%"+bookName+"%");
-       }
-       //分页处理
-       PageHelper.startPage(1, 30);
-       List<YctuLiarbryBooks> yctuLiarbryBooksList = liarbryBooksMapper.selectByExample(example);
-       for (YctuLiarbryBooks books:yctuLiarbryBooksList){
-           YctuLiarbryBooktypes booktypes=bookTypeCSV.qryBookTypes(Integer.valueOf(books.getBookType()));
-           if (booktypes==null  || booktypes.getTypeName() == null) {
-               books.setBookType(booktypes.getTypeName());
-           }
-           SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    public EUDataGridResult qryBooksLoc(Integer bookId, String bookName) {
+        log.info("查询图书位置:开始：bookId=" + bookId + "bookName=" + bookName);
+        //执行查询 分页
+        YctuLiarbryBooksExample example = new YctuLiarbryBooksExample();
+        YctuLiarbryBooksExample.Criteria criteria = example.createCriteria();
+        if (StringUtils.isBlank(bookName)) {
+            criteria.andBookIdEqualTo(bookId);
+        } else {
+            criteria.andBookNameLike("%" + bookName + "%");
+        }
+        //分页处理
+        PageHelper.startPage(1, 30);
+        List<YctuLiarbryBooks> yctuLiarbryBooksList = liarbryBooksMapper.selectByExample(example);
+        for (YctuLiarbryBooks books : yctuLiarbryBooksList) {
+            YctuLiarbryBooktypes booktypes = bookTypeCSV.qryBookTypes(Integer.valueOf(books.getBookType()));
+            if (booktypes == null || booktypes.getTypeName() == null) {
+                books.setBookType(booktypes.getTypeName());
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-           java.util.Date time=null;
-           try {
-               time= sdf.parse(sdf.format(books.getCreateDate()));
+            java.util.Date time = null;
+            try {
+                time = sdf.parse(sdf.format(books.getCreateDate()));
 
-           } catch (ParseException e) {
+            } catch (ParseException e) {
 
-               e.printStackTrace();
-           }
-           books.setCreateDate(time);
-       }
-       //创建一个返回值对象
-       EUDataGridResult euDataGridResult = new EUDataGridResult();
-       euDataGridResult.setRows(yctuLiarbryBooksList);
-       //取出total
-       PageInfo<YctuLiarbryBooks> pageInfo = new PageInfo<>(yctuLiarbryBooksList);
-       long total = pageInfo.getTotal();
-       euDataGridResult.setTotal(total);
-       return euDataGridResult;
-   }
+                e.printStackTrace();
+            }
+            books.setCreateDate(time);
+        }
+        //创建一个返回值对象
+        EUDataGridResult euDataGridResult = new EUDataGridResult();
+        euDataGridResult.setRows(yctuLiarbryBooksList);
+        //取出total
+        PageInfo<YctuLiarbryBooks> pageInfo = new PageInfo<>(yctuLiarbryBooksList);
+        long total = pageInfo.getTotal();
+        euDataGridResult.setTotal(total);
+        log.info("查询图书位置:结束：bookId=" + bookId + "bookName=" + bookName);
+        return euDataGridResult;
+    }
 
     /**
      * 查询图书位置
@@ -96,6 +104,7 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
      */
     @Override
     public YctuLiarbryBooks qryBooksLocation(Integer bookId) {
+        log.info("查询图书位置:开始：bookId=" + bookId);
 //        YctuLiarbryBooks yctuLiarbryBooks = liarbryBooksMapper.selectByPrimaryKey(bookid);
         YctuLiarbryBooksExample yctuLiarbryBooksExample = new YctuLiarbryBooksExample();
         //添加查询条件
@@ -104,6 +113,7 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
         List<YctuLiarbryBooks> yctuLiarbryBooks = liarbryBooksMapper.selectByExample(yctuLiarbryBooksExample);
         if (yctuLiarbryBooks != null && yctuLiarbryBooks.size() > 0) {
             YctuLiarbryBooks liarbryBooks = yctuLiarbryBooks.get(0);
+            log.info("查询图书位置:结束：bookId=" + bookId);
             return liarbryBooks;
         }
         return null;
@@ -119,23 +129,24 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
      * @author lipeng
      */
     public EUDataGridResult getBookList(Integer page, Integer rows) {
+        log.info("图书列表查询:开始：bookId=");
         //执行查询 分页
         YctuLiarbryBooksExample example = new YctuLiarbryBooksExample();
         //分页处理
         PageHelper.startPage(page, rows);
         List<YctuLiarbryBooks> list = liarbryBooksMapper.selectByExample(example);
-        for (YctuLiarbryBooks yctuLiarbryBooks:list){
-            YctuLiarbryBooktypes booktypes=bookTypeCSV.qryBookTypes(Integer.valueOf(yctuLiarbryBooks.getBookType()));
+        for (YctuLiarbryBooks yctuLiarbryBooks : list) {
+            YctuLiarbryBooktypes booktypes = bookTypeCSV.qryBookTypes(Integer.valueOf(yctuLiarbryBooks.getBookType()));
             //处理图书科目问题
-            if (booktypes==null  || booktypes.getTypeName() == null) {
+            if (booktypes == null || booktypes.getTypeName() == null) {
                 yctuLiarbryBooks.setBookType(booktypes.getTypeName());
-            }else {
+            } else {
                 yctuLiarbryBooks.setBookType(yctuLiarbryBooks.getBookType());
             }
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            java.util.Date time=null;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            java.util.Date time = null;
             try {
-                time= sdf.parse(sdf.format(yctuLiarbryBooks.getCreateDate()));
+                time = sdf.parse(sdf.format(yctuLiarbryBooks.getCreateDate()));
 
             } catch (ParseException e) {
 
@@ -150,6 +161,7 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
         PageInfo<YctuLiarbryBooks> pageInfo = new PageInfo<>(list);
         long total = pageInfo.getTotal();
         euDataGridResult.setTotal(total);
+        log.info("图书列表查询:结束：bookId=");
         return euDataGridResult;
     }
 
@@ -164,6 +176,7 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
      */
     @Override
     public SuccessCode deleteBook(Integer bookId, Integer op_id) {
+        log.info("删除图书:开始：bookId=" + bookId + "  opid=" + op_id);
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
@@ -172,7 +185,7 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
             if (op == null) {
                 throw new Exception("06");
             }
-            if (op.getOpType()>1) {
+            if (op.getOpType() > 1) {
                 throw new Exception("01");
             }
             YctuLiarbryBooksExample yctuLiarbryBooksExample = new YctuLiarbryBooksExample();
@@ -204,18 +217,22 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
                 his.setType("删除图书");
             }
             hisCSV.insertHis(his);
+            log.info("删除图书:结束：bookId=" + bookId + "  opid=" + op_id);
             return successCode;
         }
     }
+
     /**
      * 添加图书
-     *<p>@Description </p>
-     *<p>@createDate 16:37 2018/4/28</p>
-     *@author lipeng
-     *@param
-     *@return
+     * <p>@Description </p>
+     * <p>@createDate 16:37 2018/4/28</p>
+     *
+     * @param
+     * @return
+     * @author lipeng
      */
-    public SuccessCode insertBook(YctuLiarbryBooks books, Integer op_id){
+    public SuccessCode insertBook(YctuLiarbryBooks books, Integer op_id) {
+        log.info("添加图书:开始：bookId=" + books.getBookName() + "  opid=" + op_id);
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
@@ -223,8 +240,8 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
             YctuLiarbryOp op = libraryOpCSV.qryOpName(op_id);
             if (op == null) {
                 throw new Exception("06");
-            }else{
-                if (op.getOpType()>1){
+            } else {
+                if (op.getOpType() > 1) {
                     throw new Exception("01");
                 }
             }
@@ -237,7 +254,7 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
             if (yctuLiarbryBooks != null && yctuLiarbryBooks.size() > 0) {
                 throw new Exception("07");
             }
-           liarbryBooksMapper.insert(books);
+            liarbryBooksMapper.insert(books);
 
         } catch (Exception e) {
             rscode = e.getMessage();
@@ -258,22 +275,28 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
                 his.setType("添加图书");
             }
             hisCSV.insertHis(his);
+            log.info("添加图书:结束：bookId=" + books.getBookName() + "  opid=" + op_id);
             return successCode;
         }
     }
-     /**修改图书信息
-      *<p>@Description </p>
-      *<p>@createDate 19:27 2018/4/28</p>
-      *@author lipeng
-      *@param
-      *@return
-      */
+
+    /**
+     * 修改图书信息
+     * <p>@Description </p>
+     * <p>@createDate 19:27 2018/4/28</p>
+     *
+     * @param
+     * @return
+     * @author lipeng
+     */
     @Override
     public void updateBook(Integer book_id, YctuLiarbryBooks books) {
+        log.info("修改图书信息:开始：bookId=" + books.getBookName());
         YctuLiarbryBooksExample example = new YctuLiarbryBooksExample();
         //添加查询条件
         YctuLiarbryBooksExample.Criteria criteria = example.createCriteria();
         criteria.andBookIdEqualTo(book_id);
         liarbryBooksMapper.updateByExample(books, example);
+        log.info("修改图书信息:结束：bookId=" + books.getBookName());
     }
 }

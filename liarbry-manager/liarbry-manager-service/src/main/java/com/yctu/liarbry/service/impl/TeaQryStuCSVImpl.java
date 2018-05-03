@@ -9,6 +9,8 @@ import com.yctu.library.common.pojo.EUDataGridResult;
 import com.yctu.library.common.pojo.SuccessCode;
 import com.yctu.liarbry.respojo.TeaQryStu;
 import com.yctu.library.common.utils.SuccessUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ import java.util.List;
  */
 @Service
 public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
+    private static final Log log = LogFactory.getLog(TeaQryStuCSVImpl.class);
     @Autowired
     private IStudentsCSV studentsCSV;
     @Autowired
@@ -43,6 +46,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
      */
     @Override
     public EUDataGridResult teaQryStu(Integer teacher_id, Integer page, Integer rows) {
+        log.info("老师查询学生图书借阅情况：开始：teacher_id=" + teacher_id);
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
@@ -104,6 +108,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
                 his.setType("教师关爱学生");
             }
             hisCSV.insertHis(his);
+            log.info("老师查询学生图书借阅情况：结束：teacher_id=" + teacher_id);
         }
         return null;
     }
@@ -118,6 +123,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
      */
     @Override
     public EUDataGridResult QryStu( Integer page, Integer rows) {
+        log.info("学生图书借阅情况：开始：" );
             //分页处理
             PageHelper.startPage(page, rows);
             List<YctuLiarbryStudents> students = studentsCSV.QryStu();
@@ -150,6 +156,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
             PageInfo<TeaQryStu> pageInfo = new PageInfo<>(teaQryStus);
             long total = pageInfo.getTotal();
             euDataGridResult.setTotal(total);
+                log.info("学生图书借阅情况：结束：" );
             return euDataGridResult;
             }
         return null;
@@ -165,6 +172,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
      */
     @Override
     public EUDataGridResult student(Integer teacher_id, Integer page, Integer rows) {
+        log.info("老师查询学生：开始： teacher_id=" +teacher_id);
         String rscode = "";
         YctuLiarbryHis his = new YctuLiarbryHis();
         SuccessCode successCode = new SuccessCode();
@@ -209,15 +217,16 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
                 his.setCodeMsg("成功");
                 his.setOpId(0);
                 his.setStId(teacher_id);
-                his.setType("查询学生");
+                his.setType("老师查询学生");
             } else {
                 his.setCode(successCode.getRscode());
                 his.setCodeMsg(successCode.getRsdec());
                 his.setOpId(0);
                 his.setStId(teacher_id);
-                his.setType("查询学生");
+                his.setType("老师查询学生");
             }
             hisCSV.insertHis(his);
+            log.info("老师查询学生：结束： teacher_id=" +teacher_id);
         }
         return null;
     }
@@ -231,6 +240,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
      * @author lipeng
      */
    public EUDataGridResult qryStudentById(Integer teacher_id,Integer studentId, Integer page, Integer rows){
+       log.info("老师查询学生信息根据学生编号：开始： teacher_id=" +teacher_id);
        //分页处理
        PageHelper.startPage(page, rows);
        List<YctuLiarbryStudents> students = studentsCSV.studentByIdOrNname(teacher_id,studentId,null);
@@ -256,6 +266,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
        PageInfo<TeaStudent> pageInfo = new PageInfo<>(teaStudents);
        long total = pageInfo.getTotal();
        euDataGridResult.setTotal(total);
+       log.info("老师查询学生信息根据学生编号：结束： teacher_id=" +teacher_id);
        return euDataGridResult;
    }
     /**
@@ -268,6 +279,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
      * @author lipeng
      */
     public EUDataGridResult qryStudentByName(Integer teacher_id,String studentName, Integer page, Integer rows){
+        log.info("老师查询学生信息根据学生姓名：开始： teacher_id=" +teacher_id);
         //分页处理
         PageHelper.startPage(page, rows);
         List<YctuLiarbryStudents> students = studentsCSV.studentByIdOrNname(teacher_id,0,studentName);
@@ -293,6 +305,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
         PageInfo<TeaStudent> pageInfo = new PageInfo<>(teaStudents);
         long total = pageInfo.getTotal();
         euDataGridResult.setTotal(total);
+        log.info("老师查询学生信息根据学生姓名：开始： teacher_id=" +teacher_id);
         return euDataGridResult;
     }
 }
