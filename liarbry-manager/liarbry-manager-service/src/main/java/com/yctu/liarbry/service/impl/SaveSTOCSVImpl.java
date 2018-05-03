@@ -8,8 +8,8 @@ import com.yctu.liarbry.service.interfaces.*;
 import com.yctu.library.common.pojo.SuccessCode;
 import com.yctu.library.common.utils.BookTimeUtil;
 import com.yctu.library.common.utils.SuccessUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
     /**
      * 全局log
      */
-    private static final Log log = LogFactory.getLog(SaveSTOCSVImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(SaveSTOCSVImpl.class);
     @Autowired
     private ILibraryOpCSV opCSV;
     @Autowired

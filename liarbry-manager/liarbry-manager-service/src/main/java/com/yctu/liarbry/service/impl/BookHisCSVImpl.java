@@ -5,8 +5,8 @@ import com.yctu.liarbry.pojo.YctuLiarbryHis;
 import com.yctu.liarbry.pojo.YctuLiarbryHisExample;
 import com.yctu.liarbry.service.interfaces.IBookHisCSV;
 import com.yctu.library.common.utils.BookTimeUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class BookHisCSVImpl implements IBookHisCSV {
     /**
      * 全局log
      */
-    private static final Log log = LogFactory.getLog(BookHisCSVImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(BookHisCSVImpl.class);
 
     @Autowired
     private YctuLiarbryHisMapper mapper ;
