@@ -9,8 +9,8 @@ import com.yctu.library.common.pojo.EUDataGridResult;
 import com.yctu.library.common.pojo.SuccessCode;
 import com.yctu.liarbry.respojo.TeaQryStu;
 import com.yctu.library.common.utils.SuccessUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Service
 public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
-    private static final Logger log = LoggerFactory.getLogger(TeaQryStuCSVImpl.class);
+    private static final Log log = LogFactory.getLog(TeaQryStuCSVImpl.class);
     @Autowired
     private IStudentsCSV studentsCSV;
     @Autowired

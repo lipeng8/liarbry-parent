@@ -4,8 +4,8 @@ import com.yctu.liarbry.mapper.YctuLiarbryTeachersMapper;
 import com.yctu.liarbry.pojo.YctuLiarbryTeachers;
 import com.yctu.liarbry.pojo.YctuLiarbryTeachersExample;
 import com.yctu.liarbry.service.interfaces.ITeacherCSV;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class TeacherCSVImpl implements ITeacherCSV {
     /**
      * 全局log
      */
-    private static final Logger log = LoggerFactory.getLogger(TeacherCSVImpl.class);
+    private static final Log log = LogFactory.getLog(TeacherCSVImpl.class);
     @Autowired
     private YctuLiarbryTeachersMapper mapper;
 

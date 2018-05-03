@@ -12,8 +12,8 @@ import com.yctu.library.common.pojo.EUDataGridResult;
 import com.yctu.library.common.pojo.SuccessCode;
 import com.yctu.library.common.utils.SuccessUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +33,7 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
     /**
      * 全局log
      */
-    private static final Logger log = LoggerFactory.getLogger(QryBooksCSVImpl.class);
+    private static final Log log = LogFactory.getLog(QryBooksCSVImpl.class);
     @Autowired
     private YctuLiarbryBooksMapper liarbryBooksMapper;
     @Autowired
