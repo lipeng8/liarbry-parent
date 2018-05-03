@@ -12,10 +12,10 @@
         <th data-options="field:'opId',width:70">操作员编号</th>
         <th data-options="field:'opName',width:70">操作员姓名</th>
         <th data-options="field:'bookId',width:70">图书编号</th>
-        <th data-options="field:'bookName',width:150">图书名称</th>
-        <th data-options="field:'stId',width:50">学生或老师编号</th>
+        <th data-options="field:'bookName',width:200">图书名称</th>
+        <th data-options="field:'stId',width:90">学生或老师编号</th>
         <th data-options="field:'stName',width:90,align:'right'">学生姓名</th>
-        <th data-options="field:'money',width:90,align:'right'">罚款</th>
+        <th data-options="field:'money',width:150,align:'right'">罚款</th>
         <th data-options="field:'createDate',width:160,align:'center',formatter:LIBRARY.formatDateTime">创建时间</th>
 
     </tr>
@@ -44,7 +44,6 @@
 
     function qryByName() {
         var op_id = $("#filterText").val();
-        student_name = encodeURI(encodeURI(student_name));
         if (op_id == '' || op_id == null) {
             $.messager.alert('错误', "请输入操作员编号");
             return;
