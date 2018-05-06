@@ -27,7 +27,9 @@
             <ul>
                 <li data-options="attributes:{'url':'book-list'}">查询图书</li>
                 <li data-options="attributes:{'url':'student?opId=<%=name%>'}">学生</li>
-                <li data-options="attributes:{'url':'teacher-list?opId=<%=name%>'}">学生借书情况</li>
+                <li data-options="attributes:{'url':'saveteaclass?opId=<%=name%>'}">新增本班级任课教师</li>
+                <li data-options="attributes:{'url':'teacher-list?opId=<%=name%>'}">本班级学生借书情况</li>
+                <li data-options="attributes:{'url':'teaclass?opId=<%=name%>'}">任课班级学生借书情况</li>
             </ul>
         </li>
     </ul>
