@@ -3,6 +3,7 @@ package com.yctu.liarbry.service.impl;
 import com.yctu.liarbry.mapper.YctuLiarbryBooktypesMapper;
 import com.yctu.liarbry.pojo.YctuLiarbryBooktypes;
 import com.yctu.liarbry.pojo.YctuLiarbryBooktypesExample;
+import com.yctu.liarbry.respojo.BookTypes;
 import com.yctu.liarbry.service.interfaces.IQryBookTypeCSV;
 import com.yctu.library.common.utils.BookTimeUtil;
 import org.apache.commons.logging.Log;
@@ -10,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,6 +50,31 @@ public class QryBookTypesCSVImpl implements IQryBookTypeCSV {
             return booktypes;
         }
         return null;
+    }
+    /**
+     * 图书科目
+     * <p>@Description </p>
+     * <p>@createDate 14:25 2018/4/26</p>
+     *
+     * @param
+     * @return
+     * @author lipeng
+     */
+    @Override
+    public  List<BookTypes> qryBookTypes() {
+        log.info("图书科目查询：开始：typeId=" );
+        YctuLiarbryBooktypesExample example = new YctuLiarbryBooktypesExample();
+        //添加查询条件
+        List<YctuLiarbryBooktypes> list = liarbryBooktypesMapper.selectByExample(example);
+        List<BookTypes> bookTypes = new ArrayList<BookTypes>();
+        for (YctuLiarbryBooktypes liarbryBooktypes : list){
+            BookTypes bookTypes1 = new BookTypes();
+            bookTypes1.setBookType(String.valueOf(liarbryBooktypes.getTypeId()));
+            bookTypes1.setBookName(liarbryBooktypes.getTypeName());
+            bookTypes.add(bookTypes1);
+        }
+        log.info("图书科目查询：结束：typeId=" );
+        return bookTypes;
     }
 
     /**

@@ -34,8 +34,9 @@
                 <li data-options="attributes:{'url':'book-list?opId=<%=opId%>'}">查询图书</li>
                 <li data-options="attributes:{'url':'inBook?opId=<%=opId%>'}">归还图书</li>
                 <li data-options="attributes:{'url':'outBook?opId=<%=opId%>'}">借阅图书</li>
-                <li data-options="attributes:{'url':'inbookqry?opId=<%=opId%>'}">还书记录查询</li>
-                <li data-options="attributes:{'url':'outbookqry?opId=<%=opId%>'}">借书记录查询</li>
+                <li data-options="attributes:{'url':'inbookqry?opId=<%=opId%>'}">归还图书记录查询</li>
+                <li data-options="attributes:{'url':'outbookqry?opId=<%=opId%>'}">借阅图书记录查询</li>
+                <li data-options="attributes:{'url':'dsBook?opId=<%=opId%>'}">损坏图书记录查询</li>
             </ul>
         </li>
         <li>
@@ -44,7 +45,6 @@
                 <li data-options="attributes:{'url':'saveop?opId=<%=opId%>'}">添加操作员</li>
                 <li data-options="attributes:{'url':'saveStudent?opId=<%=opId%>'}">添加学生</li>
                 <li data-options="attributes:{'url':'saveTeacher?opId=<%=opId%>'}">添加老师</li>
-                <li data-options="attributes:{'url':'dsBook?opId=<%=opId%>'}">毁灭者查询</li>
             </ul>
         </li>
     </ul>

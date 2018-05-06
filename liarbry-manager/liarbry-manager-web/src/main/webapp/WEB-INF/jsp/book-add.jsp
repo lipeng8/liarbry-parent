@@ -7,9 +7,8 @@
 	    <table cellpadding="5">
 			<tr>
 				<td>图书类别:</td>
-				<td>
-					<a href="javascript:void(0)" class="easyui-linkbutton selectBookCat">选择科目</a>
-					<input type="hidden" name="bookId" style="width: 280px;"></input>
+				<td >
+					<input id="bookType" class="easyui-combobox" type="text" style="width: 280px;"></input>
 				</td>
 			</tr>
 			<tr>
@@ -25,18 +24,8 @@
 				<td><input class="easyui-numberbox" type="text" name="bookNumber" data-options="min:1,max:99999999,precision:0,required:true" /></td>
 			</tr>
 			<tr>
-				<td>图书类别:</td>
-				<td>
-					<input class="easyui-textbox" type="text" name="bookType" data-options="validType:'length[1,30]'" />
-				</td>
-			</tr>
-			<tr>
 				<td>图书译者:</td>
 				<td><input class="easyui-numberbox" type="text" name="bookUser2" data-options="min:1,max:99999999,precision:0,required:true" /></td>
-				<%--<td>
-                        <a href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>
-                        <input type="hidden" name="image"/>
-                    </td>--%>
 			</tr>
 			<tr>
 				<td>图书价格:</td>
@@ -56,18 +45,6 @@
 				<td>补充:</td>
 				<td><input class="easyui-numberbox" type="text" name="ext2" data-options="min:1,max:99999999,precision:0" /></td>
 			</tr>
-			<%--<tr>
-                <td>商品描述:</td>
-                <td>
-                    <textarea style="width:800px;height:300px;visibility:hidden;" name="desc"></textarea>
-                </td>
-            </tr>
-            <tr class="params hide">
-                <td>商品规格:</td>
-                <td>
-
-                </td>
-            </tr>--%>
 	    </table>
 	    <input type="hidden" name="bookParams"/>
 	</form>
@@ -88,14 +65,24 @@
 			//根据商品的分类id取商品 的规格模板，生成规格信息。第四天内容。
 			LIBRARY.changeBookParam(node, "bookAddForm");
 		}});
+        $.post("/book/bookType", function(data){
+
+                $("#bookType").combobox({
+					data:data,
+                    valueField: 'bookType',
+                    textField: 'bookName'
+                });
+        });
 	});
-	//提交表单
+	/*//提交表单
 	function submitForm(){
 		//有效性验证
 		if(!$('#bookAddForm').form('validate')){
 			$.messager.alert('提示','表单还未填写完成!');
 			return ;
 		}
+		//获取图书类型
+		vat bookType = $("#bookType").combobox("getValue");
 		//取商品价格，单位为“分”
 		$("#bookAddForm [name=price]").val(eval($("#bookAddForm [name=priceView]").val()) * 100);
 		//同步文本框中的商品描述
@@ -134,5 +121,5 @@
 	function clearForm(){
 		$('#bookAddForm').form('reset');
 		bookAddEditor.html('');
-	}
+	}*/
 </script>
