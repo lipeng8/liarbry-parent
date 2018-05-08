@@ -85,7 +85,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
             euDataGridResult.setRows(teaQryStus);
             //取出total
             PageInfo<TeaQryStu> pageInfo = new PageInfo<>(teaQryStus);
-            long total = pageInfo.getTotal();
+            long total = teaQryStus.size();
             euDataGridResult.setTotal(total);
             return euDataGridResult;
 
@@ -154,7 +154,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
             euDataGridResult.setRows(teaQryStus);
             //取出total
             PageInfo<TeaQryStu> pageInfo = new PageInfo<>(teaQryStus);
-            long total = pageInfo.getTotal();
+            long total = teaQryStus.size();
             euDataGridResult.setTotal(total);
                 log.info("学生图书借阅情况：结束：" );
             return euDataGridResult;
@@ -203,7 +203,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
             euDataGridResult.setRows(teaStudents);
             //取出total
             PageInfo<TeaStudent> pageInfo = new PageInfo<>(teaStudents);
-            long total = pageInfo.getTotal();
+            long total = teaStudents.size();
             euDataGridResult.setTotal(total);
             return euDataGridResult;
 
@@ -264,7 +264,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
        euDataGridResult.setRows(teaStudents);
        //取出total
        PageInfo<TeaStudent> pageInfo = new PageInfo<>(teaStudents);
-       long total = pageInfo.getTotal();
+       long total =teaStudents.size();
        euDataGridResult.setTotal(total);
        log.info("老师查询学生信息根据学生编号：结束： teacher_id=" +teacher_id);
        return euDataGridResult;
@@ -303,7 +303,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
         euDataGridResult.setRows(teaStudents);
         //取出total
         PageInfo<TeaStudent> pageInfo = new PageInfo<>(teaStudents);
-        long total = pageInfo.getTotal();
+        long total = teaStudents.size();
         euDataGridResult.setTotal(total);
         log.info("老师查询学生信息根据学生姓名：开始： teacher_id=" +teacher_id);
         return euDataGridResult;

@@ -108,7 +108,7 @@ public class BookInCSVImpl implements IBookInCSV {
                 euDataGridResult.setRows(inbookqries);
                 //取出total
                 PageInfo<Inbookqry> pageInfo = new PageInfo<>(inbookqries);
-                long total = pageInfo.getTotal();
+                long total = ins.size();
                 euDataGridResult.setTotal(total);
                 return euDataGridResult;
             } else {
@@ -195,7 +195,7 @@ public class BookInCSVImpl implements IBookInCSV {
         euDataGridResult.setRows(inbookqries);
         //取出total
         PageInfo<Inbookqry> pageInfo = new PageInfo<>(inbookqries);
-        long total = pageInfo.getTotal();
+        long total = ins.size();
         euDataGridResult.setTotal(total);
         log.info("还书记录查询结束：");
         return euDataGridResult;

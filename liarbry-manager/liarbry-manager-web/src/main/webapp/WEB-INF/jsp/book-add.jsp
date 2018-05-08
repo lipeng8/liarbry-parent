@@ -2,6 +2,12 @@
 <link href="/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
 <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+	String opId = request.getParameter("opId");//用request得到
+%>
 <div style="padding:10px 10px 10px 10px">
 	<form id="bookAddForm" class="bookForm" method="post">
 	    <table cellpadding="5">
@@ -74,52 +80,40 @@
                 });
         });
 	});
-	/*//提交表单
-	function submitForm(){
-		//有效性验证
-		if(!$('#bookAddForm').form('validate')){
-			$.messager.alert('提示','表单还未填写完成!');
-			return ;
-		}
-		//获取图书类型
-		vat bookType = $("#bookType").combobox("getValue");
-		//取商品价格，单位为“分”
-		$("#bookAddForm [name=price]").val(eval($("#bookAddForm [name=priceView]").val()) * 100);
-		//同步文本框中的商品描述
-		bookAddEditor.sync();
-		//取商品的规格
-		var paramJson = [];
-		$("#bookAddForm .params li").each(function(i,e){
-			var trs = $(e).find("tr");
-			var group = trs.eq(0).text();
-			var ps = [];
-			for(var i = 1;i<trs.length;i++){
-				var tr = trs.eq(i);
-				ps.push({
-					"k" : $.trim(tr.find("td").eq(0).find("span").text()),
-					"v" : $.trim(tr.find("input").val())
-				});
-			}
-			paramJson.push({
-				"group" : group,
-				"params": ps
-			});
-		});
-		//把json对象转换成字符串
-		paramJson = JSON.stringify(paramJson);
-		$("#bookAddForm [name=bookParams]").val(paramJson);
-		
-		//ajax的post方式提交表单
-		//$("#bookAddForm").serialize()将表单序列号为key-value形式的字符串
-		$.post("/book/save",$("#bookAddForm").serialize(), function(data){
-			if(data.status == 200){
-				$.messager.alert('提示','新增商品成功!');
-			}
-		});
-	}
-	
-	function clearForm(){
-		$('#bookAddForm').form('reset');
-		bookAddEditor.html('');
-	}*/
+    function submitForm() {
+        var bookId = $("#Id").val();
+        var outStId = $("#SId").val();
+        var ext1 = $("#ext11").val();
+        var ext2 = $("#ext12").val();
+        ext1 = encodeURI(encodeURI(ext1));
+        ext2 = encodeURI(encodeURI(ext2));
+        var opst = <%=opId%>;
+        if ($("#Id").val() == null || $("#Id").val() == '' || $("#Id").val() == undefined) {
+            $.messager.alert('错误', "请输入图书编号");
+            return;
+        }
+        if ($("#SId").val() == null || $("#SId").val() == '' || $("#SId").val() == undefined) {
+            $.messager.alert('错误', "请输入借书卡编号");
+            return;
+        }
+        console.log(opst)
+        if (opst == null || opst == '' || opst == 0 || opst == undefined) {
+            $.messager.alert('错误', "请登录操作员账号");
+            return;
+        }
+        $.post("/book/out?bookId=" + bookId + "&outStId=" + outStId + "&outOpId=<%=opId%>&ext1=" + ext1 + "&ext2=" + ext2, function (data) {
+            if (data.rscode == 0) {
+                $.messager.alert(data.rsdec, "已成功借书");
+            } else {
+                $.messager.alert("警告", data.rsdec);
+            }
+        });
+    };
+
+    function outClear() {
+        $("#Id").textbox("setValue", "");
+        $("#SId").textbox("setValue", "");
+        $("#ext11").textbox("setValue", "");
+        $("#ext12").textbox("setValue", "");
+    };
 </script>

@@ -87,7 +87,7 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
         euDataGridResult.setRows(yctuLiarbryBooksList);
         //取出total
         PageInfo<YctuLiarbryBooks> pageInfo = new PageInfo<>(yctuLiarbryBooksList);
-        long total = pageInfo.getTotal();
+        long total = yctuLiarbryBooksList.size();
         euDataGridResult.setTotal(total);
         log.info("查询图书位置:结束：bookId=" + bookId + "bookName=" + bookName);
         return euDataGridResult;

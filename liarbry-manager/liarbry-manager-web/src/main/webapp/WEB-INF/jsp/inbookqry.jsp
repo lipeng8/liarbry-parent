@@ -21,9 +21,7 @@
     </tr>
     </thead>
 </table>
-<div id="bookEditWindow" class="easyui-window" title="借书"
-     data-options="modal:true,closed:true,iconCls:'icon-save',href:'/rest/page/book-edit'"
-     style="width:80%;height:80%;padding:10px;">
+<div id="bookEditWindow" class="easyui-window" title="借书"data-options="modal:true,closed:true,iconCls:'icon-save',href:'/rest/page/book-edit'"style="width:80%;height:80%;padding:10px;">
 </div>
 <div style="position: absolute;top: 42px;left:730px;">
     <input id="filterText" class="easyui-textbox" type="text"></input>
@@ -54,7 +52,7 @@
         });
     }
 
-    /*function getSelectionsIds(){
+    function getSelectionsIds(){
         var sels = $("#teacherList").datagrid("getChecked");
         var ids = [];
         for(var i=1 in sels){
@@ -62,7 +60,7 @@
         }
         ids = ids.join(",");
         return ids;
-    }*/
+    }
 
     var toolbar = [{
         /*text:'新增',*/

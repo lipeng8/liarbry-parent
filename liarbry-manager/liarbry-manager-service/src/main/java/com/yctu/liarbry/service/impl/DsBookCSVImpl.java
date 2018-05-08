@@ -109,7 +109,7 @@ public class DsBookCSVImpl implements IDsBookCSV {
         euDataGridResult.setRows(dsBooks);
         //取出total
         PageInfo<DsBook> pageInfo = new PageInfo<>(dsBooks);
-        long total = pageInfo.getTotal();
+        long total = dsBooks.size();
         euDataGridResult.setTotal(total);
         log.info("损坏记录查询结束：st_id=" + st_id);
         return euDataGridResult;
@@ -163,7 +163,7 @@ public class DsBookCSVImpl implements IDsBookCSV {
         euDataGridResult.setRows(dsBooks);
         //取出total
         PageInfo<DsBook> pageInfo = new PageInfo<>(dsBooks);
-        long total = pageInfo.getTotal();
+        long total = dsBooks.size();
         euDataGridResult.setTotal(total);
         log.info("损坏记录查询结束：op_id=" + op_id);
         return euDataGridResult;
@@ -216,7 +216,7 @@ public class DsBookCSVImpl implements IDsBookCSV {
         euDataGridResult.setRows(dsBooks);
         //取出total
         PageInfo<DsBook> pageInfo = new PageInfo<>(dsBooks);
-        long total = pageInfo.getTotal();
+        long total = dsBooks.size();
         euDataGridResult.setTotal(total);
         log.info("损坏记录查询结束：");
         return euDataGridResult;
