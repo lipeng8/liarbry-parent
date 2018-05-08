@@ -5,7 +5,7 @@
     <id column="book_id" property="bookId" jdbcType="INTEGER" />
     <id column="st_id" property="stId" jdbcType="INTEGER" />
     <result column="op_id" property="opId" jdbcType="INTEGER" />
-    <result column="money" property="money" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -105,7 +105,7 @@
     insert into yctu_liarbry_dsbook02_2018 (book_id, st_id, op_id, 
       money, create_date)
     values (#{bookId,jdbcType=INTEGER}, #{stId,jdbcType=INTEGER}, #{opId,jdbcType=INTEGER}, 
-      #{money,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP})
+      #{money,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yctu.liarbry.pojo.YctuLiarbryDsbook022018" >
     insert into yctu_liarbry_dsbook02_2018
@@ -137,7 +137,7 @@
         #{opId,jdbcType=INTEGER},
       </if>
       <if test="money != null" >
-        #{money,jdbcType=INTEGER},
+        #{money,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
@@ -163,7 +163,7 @@
         op_id = #{record.opId,jdbcType=INTEGER},
       </if>
       <if test="record.money != null" >
-        money = #{record.money,jdbcType=INTEGER},
+        money = #{record.money,jdbcType=VARCHAR},
       </if>
       <if test="record.createDate != null" >
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
@@ -178,7 +178,7 @@
     set book_id = #{record.bookId,jdbcType=INTEGER},
       st_id = #{record.stId,jdbcType=INTEGER},
       op_id = #{record.opId,jdbcType=INTEGER},
-      money = #{record.money,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -191,7 +191,7 @@
         op_id = #{opId,jdbcType=INTEGER},
       </if>
       <if test="money != null" >
-        money = #{money,jdbcType=INTEGER},
+        money = #{money,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
@@ -203,7 +203,7 @@
   <update id="updateByPrimaryKey" parameterType="com.yctu.liarbry.pojo.YctuLiarbryDsbook022018" >
     update yctu_liarbry_dsbook02_2018
     set op_id = #{opId,jdbcType=INTEGER},
-      money = #{money,jdbcType=INTEGER},
+      money = #{money,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP}
     where book_id = #{bookId,jdbcType=INTEGER}
       and st_id = #{stId,jdbcType=INTEGER}

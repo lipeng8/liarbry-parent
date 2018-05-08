@@ -5,7 +5,7 @@ import java.util.Date;
 public class YctuLiarbryDsbook022018 extends YctuLiarbryDsbook022018Key {
     private Integer opId;
 
-    private Integer money;
+    private String money;
 
     private Date createDate;
 
@@ -17,12 +17,12 @@ public class YctuLiarbryDsbook022018 extends YctuLiarbryDsbook022018Key {
         this.opId = opId;
     }
 
-    public Integer getMoney() {
+    public String getMoney() {
         return money;
     }
 
-    public void setMoney(Integer money) {
-        this.money = money;
+    public void setMoney(String money) {
+        this.money = money == null ? null : money.trim();
     }
 
     public Date getCreateDate() {
