@@ -89,6 +89,10 @@ public class SuccessUtil {
             successCode.setRscode(rsCode);
             successCode.setRsdec("该老师信息不存在 请重新输入");
             return  successCode;
+        }else  if (rsCode==24){
+            successCode.setRscode(rsCode);
+            successCode.setRsdec("无科目信息 请重新输入");
+            return  successCode;
         }
         successCode.setRscode(99);
         successCode.setRsdec("系统异常");

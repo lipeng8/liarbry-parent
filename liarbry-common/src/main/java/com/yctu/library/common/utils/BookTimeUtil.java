@@ -37,4 +37,11 @@ public class BookTimeUtil {
         }
         return time;
     }
+    public static Integer intTimes() {
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");//可以方便地修改日期格式
+
+        String time = dateFormat.format(now);
+        return Integer.valueOf(time);
+    }
 }
