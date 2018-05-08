@@ -40,6 +40,16 @@ public interface IStudentsCSV {
      */
     List<YctuLiarbryStudents> teaQryStu(Integer teacher_id);
     /**
+     * 任课教师查询学生借阅情况
+     * <p>@Description </p>
+     * <p>@createDate 16:05 2018/4/26</p>
+     *
+     * @param
+     * @return
+     * @author lipeng
+     */
+    List<YctuLiarbryStudents> qryTeaClass(Integer class_id);
+    /**
      * 老师查询学生借书情况
      * <p>@Description </p>
      * <p>@createDate 16:05 2018/4/26</p>

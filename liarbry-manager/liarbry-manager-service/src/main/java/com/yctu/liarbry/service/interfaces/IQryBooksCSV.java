@@ -52,13 +52,15 @@ public interface IQryBooksCSV {
     SuccessCode deleteBook(Integer bookId, Integer op_id);
     /**
      * 添加图书
-     *<p>@Description </p>
-     *<p>@createDate 16:37 2018/4/28</p>
-     *@author lipeng
-     *@param
-     *@return
+     * <p>@Description </p>
+     * <p>@createDate 16:37 2018/4/28</p>
+     *
+     * @param
+     * @return
+     * @author lipeng
      */
-   SuccessCode insertBook(YctuLiarbryBooks books, Integer op_id);
+   SuccessCode insertBook(String user,String user2,String book_loca,String book_name,String booktype,Double book_price,Integer book_number,
+                                  Integer op_id,String ext1,String ext2);
     /**修改图书信息
      *<p>@Description </p>
      *<p>@createDate 19:27 2018/4/28</p>

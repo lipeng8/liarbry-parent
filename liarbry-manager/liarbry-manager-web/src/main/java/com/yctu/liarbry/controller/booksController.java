@@ -64,4 +64,21 @@ public class booksController {
         SuccessCode successCode = qryBooksCSV.deleteBook(bookId,op_id);
         return successCode;
     }
+
+    /**
+     * 添加图书
+     * <p>@Description </p>
+     * <p>@createDate 16:37 2018/4/28</p>
+     *
+     * @param
+     * @return
+     * @author lipeng
+     */
+    @RequestMapping("/book/insert")
+    @ResponseBody
+    public SuccessCode insertBook(String user,String user2,String book_loca,String book_name,String booktype,Double book_price,Integer book_number,
+                                  Integer op_id,String ext1,String ext2) {
+        SuccessCode successCode = qryBooksCSV.insertBook(user,user2,book_loca,book_name,booktype,book_price,book_number,op_id,ext1,ext2);
+        return successCode;
+    }
 }

@@ -94,6 +94,26 @@ public class StudentsCSVImpl implements IStudentsCSV {
         log.info("老师查询学生借书情况：结束：teacher_id=" + teacher_id);
         return list;
     }
+    /**
+     * 任课教师查询学生借阅情况
+     * <p>@Description </p>
+     * <p>@createDate 16:05 2018/4/26</p>
+     *
+     * @param
+     * @return
+     * @author lipeng
+     */
+    @Override
+    public List<YctuLiarbryStudents> qryTeaClass(Integer class_id) {
+        log.info("老师查询学生借书情况：开始：class_id=" + class_id);
+        YctuLiarbryStudentsExample example = new YctuLiarbryStudentsExample();
+        //添加查询条件
+        YctuLiarbryStudentsExample.Criteria criteria = example.createCriteria();
+        criteria.andStudentClassEqualTo(class_id);
+        List<YctuLiarbryStudents> list = mapper.selectByExample(example);
+        log.info("老师查询学生借书情况：结束：class_id=" + class_id);
+        return list;
+    }
 
     /**
      * 学生借书情况

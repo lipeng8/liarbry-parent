@@ -275,14 +275,14 @@ public class BookInCSVImpl implements IBookInCSV {
                 }
                 if (in.getInStaus() == 1) {
                     successMoneyCode.setMoney(String.valueOf(BookTimeUtil.moneyTime(in.getInDate(), out.getOutDate())) + " 元");
-                    dsbook.setMoney(0);
+                    dsbook.setMoney("0");
                     dsBookCSV.insertDSBook(dsbook);
                     books.setBookNumber(books.getBookNumber() + 1);
                     booksCSV.updateBook(in.getBookId(), books);
                 } else if (in.getInStaus() == 2) {
                     successMoneyCode.setMoney(String.valueOf(BookTimeUtil.moneyTime(in.getInDate(), out.getOutDate()) + books.getBookPrice()) + " 元");
                     ///更改代码
-                    dsbook.setMoney(1111111);
+                    dsbook.setMoney(String.valueOf(BookTimeUtil.moneyTime(in.getInDate(), out.getOutDate()) + books.getBookPrice()) + " 元");
                     dsBookCSV.insertDSBook(dsbook);
                 } else {
                     successMoneyCode.setMoney(String.valueOf(BookTimeUtil.moneyTime(in.getInDate(), out.getOutDate())) + " 元");
