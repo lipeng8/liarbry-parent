@@ -32,4 +32,13 @@ public interface ISaveSTOCSV {
      *@return
      */
  SuccessCode saveTeacher(Integer teacher_id, Integer opId, String teacher_pwd, String teacher_name, Integer teacher_class, String ext1, String ext2);
+ /**
+  * 删除普通管理员，学生，老师
+  *<p>@Description </p>
+  *<p>@createDate 15:01 2018/5/10</p>
+  *@author lipeng
+  *@param
+  *@return
+  */
+ SuccessCode deleteSTO(Integer id,Integer opId,Integer type);
 }

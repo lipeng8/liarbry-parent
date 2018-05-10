@@ -40,11 +40,12 @@
             </ul>
         </li>
         <li>
-            <span>网站人员管理</span>
+            <span>系统人员管理</span>
             <ul>
                 <li data-options="attributes:{'url':'saveop?opId=<%=opId%>'}">添加操作员</li>
                 <li data-options="attributes:{'url':'saveStudent?opId=<%=opId%>'}">添加学生</li>
                 <li data-options="attributes:{'url':'saveTeacher?opId=<%=opId%>'}">添加老师</li>
+                <li data-options="attributes:{'url':'deleteSTO?opId=<%=opId%>'}">删除人员</li>
             </ul>
         </li>
     </ul>

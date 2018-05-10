@@ -9,6 +9,7 @@ import com.yctu.liarbry.service.interfaces.*;
 import com.yctu.library.common.pojo.EUDataGridResult;
 import com.yctu.library.common.pojo.SuccessCode;
 import com.yctu.library.common.utils.BookTimeUtil;
+import com.yctu.library.common.utils.PageUtil;
 import com.yctu.library.common.utils.SuccessUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,7 +82,7 @@ public class ITeaClassCSVImpl implements ITeaClassCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);
@@ -120,15 +121,15 @@ public class ITeaClassCSVImpl implements ITeaClassCSV {
         try {
             YctuLiarbryTeachers teachers = teacherCSV.qryTeacher(teacher_id);
             //分页处理
-            PageHelper.startPage(page, rows);
+//            PageHelper.startPage(page, rows);
             List<TeaQryStu> teaQryStus = new ArrayList<TeaQryStu>();
             if (teachers != null) {
                 YctuLiarbryTeaclassExample example = new YctuLiarbryTeaclassExample();
                 YctuLiarbryTeaclassExample.Criteria criteria = example.createCriteria();
                 criteria.andTeacherIdEqualTo(teacher_id);
+                criteria.andStudentClassEqualTo(class_id);
                 List<YctuLiarbryTeaclass> teaList = mapper.selectByExample(example);
-                for (YctuLiarbryTeaclass teaclass : teaList) {
-                    if (teaclass.getStudentClass() == class_id) {
+                if(teaList!=null||teaList.size()>0) {
                         List<YctuLiarbryStudents> list = studentsCSV.qryTeaClass(class_id);
                         for (YctuLiarbryStudents students : list) {
                             List<YctuLiarbryOut> outs = outCSV.qryBookOut(students.getStudentId());
@@ -150,7 +151,9 @@ public class ITeaClassCSVImpl implements ITeaClassCSV {
                                 teaQryStus.add(teaQryStu);
                             }
                         }
-                    }
+
+                }else {
+                    throw new Exception("10");
                 }
 
             } else {
@@ -158,16 +161,16 @@ public class ITeaClassCSVImpl implements ITeaClassCSV {
             }
             //创建一个返回值对象
             EUDataGridResult euDataGridResult = new EUDataGridResult();
-            euDataGridResult.setRows(teaQryStus);
+            euDataGridResult.setRows(PageUtil.page(teaQryStus,page,rows));
             //取出total
-            PageInfo<TeaQryStu> pageInfo = new PageInfo<>(teaQryStus);
-            long total = teaQryStus.size();
+//            PageInfo<TeaQryStu> pageInfo = new PageInfo<>(teaQryStus);
+            long total =teaQryStus.size();
             euDataGridResult.setTotal(total);
             return euDataGridResult;
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);

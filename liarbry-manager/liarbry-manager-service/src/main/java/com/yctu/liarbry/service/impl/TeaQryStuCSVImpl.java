@@ -8,6 +8,7 @@ import com.yctu.liarbry.service.interfaces.*;
 import com.yctu.library.common.pojo.EUDataGridResult;
 import com.yctu.library.common.pojo.SuccessCode;
 import com.yctu.liarbry.respojo.TeaQryStu;
+import com.yctu.library.common.utils.PageUtil;
 import com.yctu.library.common.utils.SuccessUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,7 +53,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
         SuccessCode successCode = new SuccessCode();
         try {
             //分页处理
-            PageHelper.startPage(page, rows);
+//            PageHelper.startPage(page, rows);
             List<YctuLiarbryStudents> students = studentsCSV.teaQryStu(teacher_id);
             List<TeaQryStu> teaQryStus = new ArrayList<TeaQryStu>();
             if (students != null && students.size() > 0) {
@@ -82,9 +83,9 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
 
             //创建一个返回值对象
             EUDataGridResult euDataGridResult = new EUDataGridResult();
-            euDataGridResult.setRows(teaQryStus);
+            euDataGridResult.setRows(PageUtil.page(teaQryStus,page,rows));
             //取出total
-            PageInfo<TeaQryStu> pageInfo = new PageInfo<>(teaQryStus);
+//            PageInfo<TeaQryStu> pageInfo = new PageInfo<>(teaQryStus);
             long total = teaQryStus.size();
             euDataGridResult.setTotal(total);
             return euDataGridResult;
@@ -92,7 +93,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);
@@ -210,7 +211,7 @@ public class TeaQryStuCSVImpl implements ITeaQryStuCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);

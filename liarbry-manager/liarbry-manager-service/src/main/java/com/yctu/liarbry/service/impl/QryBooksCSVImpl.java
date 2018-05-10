@@ -203,7 +203,7 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);
@@ -278,7 +278,7 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);

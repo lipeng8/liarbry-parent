@@ -1,9 +1,6 @@
 package com.yctu.liarbry.service.impl;
 
-import com.yctu.liarbry.pojo.YctuLiarbryHis;
-import com.yctu.liarbry.pojo.YctuLiarbryOp;
-import com.yctu.liarbry.pojo.YctuLiarbryStudents;
-import com.yctu.liarbry.pojo.YctuLiarbryTeachers;
+import com.yctu.liarbry.pojo.*;
 import com.yctu.liarbry.service.interfaces.*;
 import com.yctu.library.common.pojo.SuccessCode;
 import com.yctu.library.common.utils.BookTimeUtil;
@@ -12,6 +9,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Author:LiPeng
@@ -80,7 +79,7 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);
@@ -146,7 +145,7 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);
@@ -207,7 +206,7 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);
@@ -227,4 +226,85 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
         }
         return successCode;
     }
+
+    /**
+     * 删除普通管理员，学生，老师
+     * <p>@Description </p>
+     * <p>@createDate 15:01 2018/5/10</p>
+     *
+     * @param
+     * @return
+     * @author lipeng
+     */
+    public SuccessCode deleteSTO(Integer id, Integer opId, Integer type) {
+        log.info("删除普通管理员，学生，老师：开始：op_id=" + opId + "  删除id=" + id);
+        String rscode = "";
+        YctuLiarbryHis his = new YctuLiarbryHis();
+        SuccessCode successCode = new SuccessCode();
+        try {
+            YctuLiarbryOp opid = opCSV.qryOpName(opId);
+            if (opid == null) {
+                throw new Exception("06");
+            }
+            if (opid.getOpType() > 1) {
+                throw new Exception("01");
+            }
+            if (type == 0) {
+                YctuLiarbryOp op = opCSV.qryOpName(id);
+                if (op == null) {
+                    throw new Exception("06");
+                } else {
+                    opCSV.deleteOp(id);
+                }
+            } else if (type == 1) {
+                YctuLiarbryStudents students = studentsCSV.qryStduent(id);
+                if (students == null) {
+                    throw new Exception("08");
+                } else {
+                    List<YctuLiarbryOut> list = outCSV.qryBookOut(id);
+                    if (list == null || list.size() <= 0) {
+                        studentsCSV.deleteStudent(id);
+                    } else {
+                        throw new Exception("09");
+                    }
+                }
+            } else if (type == 2) {
+                YctuLiarbryTeachers teachers = teacherCSV.qryTeacher(id);
+                if (teachers == null) {
+                    throw new Exception("17");
+                } else {
+                    List<YctuLiarbryOut> list = outCSV.qryBookOut(id);
+                    if (list == null || list.size() <= 0) {
+                        teacherCSV.deleteTeacher(id);
+                    } else {
+                        throw new Exception("09");
+                    }
+                }
+            } else {
+                throw new Exception("人员类别传入错误");
+            }
+        } catch (Exception e) {
+            rscode = e.getMessage();
+            SuccessUtil successUtil = new SuccessUtil();
+            successCode = successUtil.rsutils(rscode);
+        } finally {
+            if ("".equals(rscode) || rscode == null) {
+                his.setCode(00);
+                his.setCodeMsg("成功");
+                his.setOpId(opId);
+                his.setStId(id);
+                his.setType("删除普通管理员，学生，老师" + type);
+            } else {
+                his.setCode(successCode.getRscode());
+                his.setCodeMsg(successCode.getRsdec());
+                his.setOpId(opId);
+                his.setStId(id);
+                his.setType("删除普通管理员，学生，老师" + type);
+            }
+            hisCSV.insertHis(his);
+            log.info("删除普通管理员，学生，老师：结束：op_id=" + opId + "  删除id=" + id);
+        }
+        return successCode;
+    }
 }
+

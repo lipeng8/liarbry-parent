@@ -72,7 +72,7 @@ public class LoginCSVImpl implements ILoginCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
 
         } finally {
             if (lg_type == 1) {

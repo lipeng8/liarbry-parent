@@ -96,7 +96,7 @@ public class DsBookCSVImpl implements IDsBookCSV {
             YctuLiarbryBooks books = booksCSV.qryBooksLocation(dsbook022018.getBookId());
             dsBook.setBookId(books.getBookId());
             dsBook.setBookName(books.getBookName());
-            if (dsbook022018.getMoney() != 0) {
+            if (Integer.valueOf(dsbook022018.getMoney()) != 0) {
                 dsBook.setMoney(dsbook022018.getMoney() + "元");
             } else {
                 dsBook.setMoney("部分破损不影响借阅" + "元");
@@ -150,7 +150,7 @@ public class DsBookCSVImpl implements IDsBookCSV {
             YctuLiarbryBooks books = booksCSV.qryBooksLocation(dsbook022018.getBookId());
             dsBook.setBookId(books.getBookId());
             dsBook.setBookName(books.getBookName());
-            if (dsbook022018.getMoney() != 0) {
+            if (Integer.valueOf(dsbook022018.getMoney()) != 0) {
                 dsBook.setMoney(dsbook022018.getMoney() + "元");
             } else {
                 dsBook.setMoney("部分破损不影响借阅" + "元");
@@ -203,7 +203,7 @@ public class DsBookCSVImpl implements IDsBookCSV {
             YctuLiarbryBooks books = booksCSV.qryBooksLocation(dsbook022018.getBookId());
             dsBook.setBookId(books.getBookId());
             dsBook.setBookName(books.getBookName());
-            if (dsbook022018.getMoney() != 0) {
+            if (Integer.valueOf(dsbook022018.getMoney()) != 0) {
                 dsBook.setMoney(dsbook022018.getMoney() + "元");
             } else {
                 dsBook.setMoney("部分破损不影响借阅" + "元");
@@ -242,7 +242,7 @@ public class DsBookCSVImpl implements IDsBookCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);

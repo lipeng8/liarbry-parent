@@ -136,7 +136,7 @@ public class BookOutCSVImpl implements IBookOutCSV {
                 euDataGridResult.setRows(teaQryStus);
                 //取出total
                 PageInfo<TeaQryStu> pageInfo = new PageInfo<>(teaQryStus);
-                long total =teaQryStus.size();
+                long total =pageInfo.getTotal();
                 euDataGridResult.setTotal(total);
                 log.info("借书记录查询结束：out_st_id="+out_st_id+" teacher_id="+teacher_id+"  studentName="+studentName);
                 return euDataGridResult;
@@ -196,8 +196,8 @@ public class BookOutCSVImpl implements IBookOutCSV {
                 EUDataGridResult euDataGridResult = new EUDataGridResult();
                 euDataGridResult.setRows(teaQryStus);
                 //取出total
-                PageInfo<TeaQryStu> pageInfo = new PageInfo<>(teaQryStus);
-                long total = teaQryStus.size();
+                PageInfo<YctuLiarbryOut> pageInfo = new PageInfo<>(outs);
+                long total = pageInfo.getTotal();
                 euDataGridResult.setTotal(total);
                 return euDataGridResult;
             }else {
@@ -206,7 +206,7 @@ public class BookOutCSVImpl implements IBookOutCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);
@@ -304,7 +304,7 @@ public class BookOutCSVImpl implements IBookOutCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);
@@ -358,7 +358,7 @@ public class BookOutCSVImpl implements IBookOutCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 his.setCode(00);
@@ -406,7 +406,7 @@ public class BookOutCSVImpl implements IBookOutCSV {
         } catch (Exception e) {
             rscode = e.getMessage();
             SuccessUtil successUtil = new SuccessUtil();
-            successCode = successUtil.rsutils(Integer.valueOf(rscode));
+            successCode = successUtil.rsutils(rscode);
         } finally {
             if ("".equals(rscode) || rscode == null) {
                 successCode.setRscode(00);

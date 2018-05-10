@@ -8,51 +8,59 @@
     String opId = request.getParameter("opId");//用request得到
 %>
 <div style="padding:10px 10px 10px 10px">
-    <form id="saveStudentForm" class="saveStudentForm" method="post">
+    <form id="inBookForm" class="inBookForm" method="post">
         <table cellpadding="5">
+            <td>图书是否损坏:</td>
+            <td>
+                <input id='noneFlag' type="radio" name="bookFlag" value="0" checked="checked">操作员</input>
+                <input id='flag1' type="radio" name="bookFlag" value="1">学生</input>
+                <input id='flag2' type="radio" name="bookFlag" value="2">老师</input>
+            </td>
             <tr>
-                <td>新增老师账号:</td>
-                <td><input class="easyui-textbox" type="text" id="teaClass_id" data-options="required:true"
+                <td>人员编号:</td>
+                <td><input class="easyui-textbox" type="text" id="Id" data-options="required:true"
                            style="width: 280px;"></input></td>
             </tr>
+
         </table>
         <input type="hidden" name="bookParams"/>
     </form>
     <div style="padding:5px">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="backBook()">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="backBook()">删除</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="inClear()">重置</a>
     </div>
 </div>
 <script type="text/javascript">
-    var radio = 2;
+    var radio = 0;
     $(function () {
         $(":radio").click(function () {
             radio = $(this).val();
         });
     });
-    <%-- student_id, student_name,  student_class, teacher_id,  ext1,  ext2--%>
+
     function backBook() {
-        var teaClass_id = $("#teaClass_id").val();
+        var Id = $("#Id").val();
         var opst = <%=opId%>;
-        if ($("#teaClass_id").val() == null || $("#teaClass_id").val() == '' || $("#teaClass_id").val() == undefined) {
-            $.messager.alert('错误', "请输入任课教师账号");
+        if ($("#Id").val() == null || $("#Id").val() == '' || $("#Id").val() == undefined) {
+            $.messager.alert('错误', "请输入人员编号");
             return;
         }
         console.log(opst)
         if (opst == null || opst == '' || opst == 0 || opst == undefined) {
-            $.messager.alert('错误', "请登录教师账号");
+            $.messager.alert('错误', "请登录操作员账号");
             return;
         }
-        $.post("/book/saveTeaClass?teacher_id=<%=opId%>&teaClass_id=" + teaClass_id , function (data) {
+        $.post("/book/deleteSTO?id=" + Id + "&opId=<%=opId%>&type=" + radio, function (data) {
             if (data.rscode == 0) {
-                $.messager.alert("已成功添加", "成功");
+                    $.messager.alert("成功", "删除");
             } else {
-                console.log(data.rsdec)
                 $.messager.alert("警告", data.rsdec);
             }
         });
     };
+
     function inClear() {
-        $("#teaclass_id").textbox("setValue", "");
+        $("#Id").textbox("setValue", "");
+        $($('.ui-select-item')[0]).addClass('checked');
     };
 </script>

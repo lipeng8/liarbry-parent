@@ -58,4 +58,17 @@ public class saveSTOController {
         SuccessCode successCode = saveSTOCSV.saveTeacher(teacher_id, opId, EncodeUtil.EncodeUtil(teacher_pwd), EncodeUtil.EncodeUtil(teacher_name), teacher_class, EncodeUtil.EncodeUtil(ext1), EncodeUtil.EncodeUtil(ext2));
         return successCode;
     }
+    @RequestMapping("/book/deleteSTO")
+    @ResponseBody
+    /**删除操作员，学生，老师
+     *<p>@Description </p>
+     *<p>@createDate 21:46 2018/4/28</p>
+     *@author lipeng
+     *@param [lg_id, lg_pwd, lg_type]
+     *@return com.yctu.library.common.pojo.SuccessCode
+     */
+    public SuccessCode deleteSTO(Integer id,Integer opId,Integer type){
+        SuccessCode successCode = saveSTOCSV.deleteSTO(id,opId,type);
+        return  successCode;
+    }
 }
