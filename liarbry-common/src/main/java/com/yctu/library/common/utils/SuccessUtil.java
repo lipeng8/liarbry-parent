@@ -105,6 +105,10 @@ public class SuccessUtil {
             successCode.setRscode(Integer.valueOf(rsCode));
             successCode.setRsdec("无科目信息 请重新输入");
             return  successCode;
+        }else  if ("25".equals(rsCode)){
+            successCode.setRscode(Integer.valueOf(rsCode));
+            successCode.setRsdec("只能删除普通管理员、删除超级管理员请向学校申请");
+            return  successCode;
         }
         successCode.setRscode(99);
         successCode.setRsdec("系统异常");
