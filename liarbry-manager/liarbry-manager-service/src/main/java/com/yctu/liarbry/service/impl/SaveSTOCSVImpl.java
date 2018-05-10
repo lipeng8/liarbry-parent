@@ -254,7 +254,11 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
                 if (op == null) {
                     throw new Exception("06");
                 } else {
-                    opCSV.deleteOp(id);
+                    if (op.getOpType()<=1){
+                        throw new Exception("25");
+                    }else {
+                        opCSV.deleteOp(id);
+                    }
                 }
             } else if (type == 1) {
                 YctuLiarbryStudents students = studentsCSV.qryStduent(id);

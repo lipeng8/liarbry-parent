@@ -17,7 +17,7 @@
         <tr>
             <td>班级名称:</td>
             <td><input class="easyui-textbox" type="text" id="className" data-options="required:true"
-                       style="width: 280px;" /><input id="qryClass" type="button" iconCls="icon-ok" value="搜索"></td>
+                       style="width: 280px;" /><input id="qryClass" type="button" iconCls="icon-ok" value="搜索" style=" margin-left: 20px"></td>
         </tr>
     </table>
     <table class="easyui-datagrid" id="classList" title="图书列表" style="position: relative;display: none;">
