@@ -191,8 +191,13 @@ public class DsBookCSVImpl implements IDsBookCSV {
             YctuLiarbryStudents students = studentsCSV.qryStduent(dsbook022018.getStId());
             if (students == null) {
                 YctuLiarbryTeachers teachers = teacherCSV.qryTeacher(dsbook022018.getStId());
-                dsBook.setStId(teachers.getTeacherId());
-                dsBook.setStName(teachers.getTeacherName());
+                if (teachers == null){
+                    dsBook.setStId(dsbook022018.getStId());
+                    dsBook.setStName("已删除人员");
+                }else {
+                    dsBook.setStId(teachers.getTeacherId());
+                    dsBook.setStName(teachers.getTeacherName());
+                }
             } else {
                 dsBook.setStId(students.getStudentId());
                 dsBook.setStName(students.getStudentName());

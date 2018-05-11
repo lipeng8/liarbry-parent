@@ -78,7 +78,7 @@ public class booksController {
     @ResponseBody
     public SuccessCode insertBook(String user,String user2,String book_loca,String book_name,String booktype,Double book_price,Integer book_number,
                                   Integer op_id,String ext1,String ext2) {
-        SuccessCode successCode = qryBooksCSV.insertBook(user,user2,book_loca,book_name,booktype,book_price,book_number,op_id,ext1,ext2);
+        SuccessCode successCode = qryBooksCSV.insertBook(EncodeUtil.EncodeUtil(user),EncodeUtil.EncodeUtil(user2),EncodeUtil.EncodeUtil(book_loca),EncodeUtil.EncodeUtil(book_name),booktype,book_price,book_number,op_id,EncodeUtil.EncodeUtil(ext1),EncodeUtil.EncodeUtil(ext2));
         return successCode;
     }
 }

@@ -269,7 +269,12 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
                     if (list == null || list.size() <= 0) {
                         studentsCSV.deleteStudent(id);
                     } else {
-                        throw new Exception("09");
+                        for (YctuLiarbryOut yctuLiarbryOut:list){
+                            if (yctuLiarbryOut.getOutStaus()==1){
+                                throw new Exception("09");
+                            }
+                        }
+                        studentsCSV.deleteStudent(id);
                     }
                 }
             } else if (type == 2) {
@@ -281,7 +286,12 @@ public class SaveSTOCSVImpl implements ISaveSTOCSV {
                     if (list == null || list.size() <= 0) {
                         teacherCSV.deleteTeacher(id);
                     } else {
-                        throw new Exception("09");
+                        for (YctuLiarbryOut yctuLiarbryOut:list){
+                            if (yctuLiarbryOut.getOutStaus()==1){
+                                throw new Exception("09");
+                            }
+                        }
+                        teacherCSV.deleteTeacher(id);
                     }
                 }
             } else {

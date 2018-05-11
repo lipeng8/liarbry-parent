@@ -272,7 +272,6 @@ public class QryBooksCSVImpl implements IQryBooksCSV {
             books.setBookUser2(user2);
             books.setExt1(ext1);
             books.setExt2(ext2);
-            books.setBookId(BookTimeUtil.intTimes());
             liarbryBooksMapper.insert(books);
 
         } catch (Exception e) {

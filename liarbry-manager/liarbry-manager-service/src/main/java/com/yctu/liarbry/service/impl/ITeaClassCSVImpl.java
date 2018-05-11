@@ -129,7 +129,7 @@ public class ITeaClassCSVImpl implements ITeaClassCSV {
                 criteria.andTeacherIdEqualTo(teacher_id);
                 criteria.andStudentClassEqualTo(class_id);
                 List<YctuLiarbryTeaclass> teaList = mapper.selectByExample(example);
-                if(teaList!=null||teaList.size()>0) {
+                if(teaList.size()>0) {
                         List<YctuLiarbryStudents> list = studentsCSV.qryTeaClass(class_id);
                         for (YctuLiarbryStudents students : list) {
                             List<YctuLiarbryOut> outs = outCSV.qryBookOut(students.getStudentId());
