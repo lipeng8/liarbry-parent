@@ -10,9 +10,15 @@
     <script type="text/javascript" src="js/jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="js/jquery-easyui-1.4.1/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
-    <title>管理员登录</title>
+    <title>管理员登录</title><style>
+    body{
+        background-image: url(../img/library7.jpg);
+        background-size: cover;
+    }
+</style>
 </head>
-<body style="background-color: #F3F3F3">
+
+<body style="background-color: #F3F3F3;opacity: 0.8;">
 <form id="loginForm" class="loginForm" method="post">
     <div class="easyui-dialog" title="管理员登录" data-options="closable:false,draggable:false"
          style="width:400px;height:300px;padding:10px;">

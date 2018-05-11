@@ -23,7 +23,7 @@
 	</style>
 </head>
 <body class="easyui-layout">
-<div data-options="region:'west',title:'菜单',split:true" style="width:180px;">
+<div data-options="region:'west',title:'菜单',split:true" style="width:180px;background-image: url(../img/library8.jpg);background-size: cover">
 	<ul id="menu" class="easyui-tree" style="margin-top: 10px;margin-left: 5px;">
 		<li>
 			<span>图书管理</span>
@@ -48,7 +48,7 @@
 		</li>
 	</ul>
 </div>
-<div data-options="region:'center'" style ="position: relative">
+<div data-options="region:'center'" style ="position: relative;">
 	<div id="tabs" class="easyui-tabs tabsClass" style="margin-right: 0px">
 		<div title="首页" style="padding:20px;">
 

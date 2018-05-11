@@ -43,6 +43,7 @@
                $.messager.alert('错误', "请输入班级编号");
                return;
            }
+
            $("#classList").attr("diaplay","block");
            $("#classList").datagrid({
                url:'/book/qrtTeaClass?teacher_id=<%=opId%>&page=1&rows=30&class_id='+className
