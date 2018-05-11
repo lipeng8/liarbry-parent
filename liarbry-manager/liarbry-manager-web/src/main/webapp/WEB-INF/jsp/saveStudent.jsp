@@ -27,7 +27,7 @@
                            style="width: 280px;" ></input></td>
             </tr>
             <tr>
-                <td>学生班主任:</td>
+                <td>学生班主任编号:</td>
                 <td><input class="easyui-textbox" type="text" id="teacher_id" data-options="required:true"
                            style="width: 280px;" ></input></td>
             </tr>

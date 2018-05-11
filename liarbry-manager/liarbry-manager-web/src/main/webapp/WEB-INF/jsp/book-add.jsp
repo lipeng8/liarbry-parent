@@ -104,6 +104,7 @@
         var book_number = $("#bookNumber").val();
         var ext1 = $("#ext1").val();
         var ext2 = $("#ext2").val();
+        var bookType = $("#bookType").combobox("getValue");
         ext1 = encodeURI(encodeURI(ext1));
         ext2 = encodeURI(encodeURI(ext2));
         book_name = encodeURI(encodeURI(book_name));
@@ -111,6 +112,10 @@
         user = encodeURI(encodeURI(user));
         user2 = encodeURI(encodeURI(user2));
         var opst = <%=opId%>;
+        if ($("#bookType").combobox("getValue") == null || $("#bookType").combobox("getValue") == '' || $("#bookType").combobox("getValue") == undefined) {
+            $.messager.alert('错误', "请选择图书科目");
+            return;
+        }
         if ($("#bookName").val() == null || $("#bookName").val() == '' || $("#bookName").val() == undefined) {
             $.messager.alert('错误', "请输入图书名称");
             return;
@@ -132,6 +137,7 @@
             return;
         }
         console.log(opst)
+        console.log(bookType)
         if (opst == null || opst == '' || opst == 0 || opst == undefined) {
             $.messager.alert('错误', "请登录操作员账号");
             return;
@@ -139,7 +145,7 @@
 //        ( user, user2, book_loca, book_name, booktype, book_price, book_number,op_id, ext1, ext2
         $.post("/book/insert?op_id=<%=opId%>&user=" + user + "&user2=" + user2 + "&ext1=" + ext1 + "&ext2=" + ext2 + "&book_loca=" + book_loca + "&book_name=" + book_name + "&book_number=" + book_number + "&book_price=" + book_price + "&booktype=" + bookType, function (data) {
             if (data.rscode == 0) {
-                $.messager.alert(data.rsdec, "已成功");
+                $.messager.alert("成功",data.rsdec);
             } else {
                 $.messager.alert("警告", data.rsdec);
             }

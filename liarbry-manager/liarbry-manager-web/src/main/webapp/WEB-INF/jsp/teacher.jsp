@@ -25,7 +25,7 @@
         <li>
             <span>学生管理</span>
             <ul>
-                <li data-options="attributes:{'url':'book-list'}">查询图书</li>
+                <li data-options="attributes:{'url':'book-tealist'}">查询图书</li>
                 <li data-options="attributes:{'url':'student?opId=<%=name%>'}">学生</li>
                 <li data-options="attributes:{'url':'saveteaclass?opId=<%=name%>'}">新增本班级任课教师</li>
                 <li data-options="attributes:{'url':'teacher-list?opId=<%=name%>'}">本班级学生借书情况</li>

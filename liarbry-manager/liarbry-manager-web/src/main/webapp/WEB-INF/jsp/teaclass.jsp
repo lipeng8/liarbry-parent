@@ -20,7 +20,7 @@
                        style="width: 280px;" /><input id="qryClass" type="button" iconCls="icon-ok" value="搜索" style=" margin-left: 20px"></td>
         </tr>
     </table>
-    <table class="easyui-datagrid" id="classList" title="图书列表" style="position: relative;display: none;">
+    <table class="easyui-datagrid" id="classList" title="借阅列表" style="position: relative;display: none;">
         <thead>
         <tr>
             <th data-options="field:'ck',checkbox:true"></th>

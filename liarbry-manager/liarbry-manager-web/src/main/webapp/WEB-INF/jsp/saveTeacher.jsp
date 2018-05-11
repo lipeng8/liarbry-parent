@@ -23,12 +23,12 @@
             </tr>
             <tr>
                 <td>老师姓名:</td>
-                <td><input class="easyui-textbox" type="text" id="teacher_class" data-options="required:true"
+                <td><input class="easyui-textbox" type="text" id="teacher_name" data-options="required:true"
                            style="width: 280px;"></input></td>
             </tr>
             <tr>
                 <td>老师班级:</td>
-                <td><input class="easyui-textbox" type="text" id="teacher_name" data-options="required:true"
+                <td><input class="easyui-textbox" type="text" id="teacher_class" data-options="required:true"
                            style="width: 280px;"></input></td>
             </tr>
             <tr>
