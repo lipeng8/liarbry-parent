@@ -28,7 +28,7 @@
 		<li>
 			<span>图书管理</span>
 			<ul>
-				<li data-options="attributes:{'url':'book-add'}">新增图书</li>
+				<li data-options="attributes:{'url':'book-add?opId=<%=name%>'}">新增图书</li>
 				<li data-options="attributes:{'url':'book-list?opId=<%=name%>'}">查询图书</li>
 				<li data-options="attributes:{'url':'inBook?opId=<%=name%>'}">归还图书</li>
 				<li data-options="attributes:{'url':'outBook?opId=<%=name%>'}">借阅图书</li>
